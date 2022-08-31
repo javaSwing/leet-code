@@ -48,6 +48,9 @@ const linked1 = new ListNode(-1).append(
  * 2. 如果本node的val和下个node的val相等，则可以跳过该节点。使用当前值的next.next=当前节点的next
  * 3. 如果不相等不作处理，继续循环
  *
+ * 时间复杂度： O(n)
+ * 空间复杂度：O(1)
+ *
  */
 function deleteDuplicates(head: ListNode | null) {
   if (!head) return null;
