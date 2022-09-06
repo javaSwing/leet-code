@@ -6,6 +6,10 @@ export class ListNode {
     this.next = next;
   }
 
+  toString(callback) {
+    return callback ? callback(this.val) : `${this.val}`;
+  }
+
   append(n: ListNode) {
     this.next = n;
     return this;
