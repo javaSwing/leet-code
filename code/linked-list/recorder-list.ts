@@ -2,6 +2,11 @@
  * 143. 重排链表
  * @see https://leetcode.cn/problems/reorder-list/
  * 此题的返回值为void,一定是修改原链表值
+ * 时间复杂度为 O(n) n为节点数
+ * 空间复杂度为 O(1)
+ * 除此之后，还有一种简单写法：
+ * 1.把链表值放输入数组中
+ * 2.循环重构链表奇数时取数组头部值，偶数时取尾数。取完为止
  */
 
 import { ListNode } from "./LinkedList";
