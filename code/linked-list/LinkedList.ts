@@ -81,7 +81,38 @@ export default class LinkedList {
    * @param val
    * @param index
    */
-  insert(val: unknown, index: number) {}
+  insert(val: unknown, rawIndex: number) {
+    const index = rawIndex < 0 ? 0 : rawIndex;
+    if (index === 0) {
+      this.prepend(val);
+    } else {
+      const newNode = new ListNode(val);
+
+      let count = 1;
+      let currentNode = this.head;
+
+      while (currentNode) {
+        if (count === index) break;
+        currentNode = currentNode.next;
+        count += 1;
+      }
+
+      if (currentNode) {
+        newNode.next = currentNode.next;
+        currentNode.next = newNode;
+      } else {
+        if (this.tail) {
+          this.tail.next = newNode;
+          this.tail = newNode;
+        } else {
+          this.head = newNode;
+          this.tail = newNode;
+        }
+      }
+    }
+
+    return this;
+  }
 
   toArray() {
     const arr: ListNode[] = [];
