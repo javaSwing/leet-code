@@ -134,7 +134,13 @@ export default class LinkedList {
       }
     }
 
+    // 处理tail
+    if (this.tail.val === val) {
+      this.tail = currentNode;
+    }
+
     this.head = dummyNode.next;
+
     return deleteNode;
   }
 
