@@ -1,3 +1,5 @@
+import { LinkedListNode } from "./LinkedListNote";
+
 export class ListNode {
   val: unknown;
   next: ListNode | null;
@@ -112,6 +114,28 @@ export default class LinkedList {
     }
 
     return this;
+  }
+
+  delete(val: unknown) {
+    if (!this.head) return null;
+    let deleteNode: ListNode | null = null;
+
+    let dummyNode = new ListNode(-1);
+    dummyNode.next = this.head;
+
+    let currentNode = dummyNode;
+
+    while (currentNode.next) {
+      if (currentNode.next.val === val) {
+        deleteNode = currentNode.next;
+        currentNode.next = currentNode.next.next;
+      } else {
+        currentNode = currentNode.next;
+      }
+    }
+
+    this.head = dummyNode.next;
+    return deleteNode;
   }
 
   toArray() {
