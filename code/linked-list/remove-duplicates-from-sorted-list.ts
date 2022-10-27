@@ -4,8 +4,8 @@ import { ListNode } from "./LinkedList";
  * @see https://leetcode.cn/problems/remove-duplicates-from-sorted-list/
  */
 
-const linked1 = new ListNode(-1).append(
-  new ListNode(0).append(new ListNode(2))
+const linked1 = new ListNode({ val: -1 }).append(
+  new ListNode({ val: 0 }).append(new ListNode(2))
 );
 
 /**

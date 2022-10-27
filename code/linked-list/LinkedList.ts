@@ -1,28 +1,28 @@
 import { LinkedListNode } from "./LinkedListNote";
 
-export class ListNode {
-  val: unknown;
-  next: ListNode | null;
-  constructor(val: unknown = 0, next: ListNode = null) {
+export class ListNode<T = any> {
+  val: T;
+  next: ListNode<T> | null;
+  constructor(val: T, next: ListNode<T> = null) {
     this.val = val;
     this.next = next;
   }
 
-  toString(callback?: (e: unknown) => void) {
+  toString(callback?: (e: T) => void) {
     return callback ? callback(this.val) : `${this.val}`;
   }
 
-  append(n: ListNode) {
+  append(n: ListNode<T>) {
     this.next = n;
     return this;
   }
 }
 
-export default class LinkedList {
+export default class LinkedList<T> {
   // 头节点
-  head: ListNode | null;
+  head: LinkedListNode<T> | null;
   // 尾节点
-  tail: ListNode | null;
+  tail: LinkedListNode<T> | null;
 
   constructor() {
     this.head = null;
@@ -34,8 +34,8 @@ export default class LinkedList {
    * @param val
    * @returns
    */
-  append(val: unknown) {
-    const newNode = new ListNode(val);
+  append(val: T) {
+    const newNode = new LinkedListNode(val);
 
     if (!this.head) {
       // first append
@@ -55,7 +55,7 @@ export default class LinkedList {
    * @param val
    * @returns
    */
-  prepend(val: unknown) {
+  prepend(val: T) {
     // const newNode = new ListNode(val);
     // if (!this.head) {
     //   this.head = newNode;
@@ -68,7 +68,7 @@ export default class LinkedList {
     // return this;
 
     // 官方写法
-    const newNode = new ListNode(val, this.head);
+    const newNode = new LinkedListNode(val, this.head);
     this.head = newNode;
 
     if (!this.tail) {
@@ -83,12 +83,12 @@ export default class LinkedList {
    * @param val
    * @param index
    */
-  insert(val: unknown, rawIndex: number) {
+  insert(val: T, rawIndex: number) {
     const index = rawIndex < 0 ? 0 : rawIndex;
     if (index === 0) {
       this.prepend(val);
     } else {
-      const newNode = new ListNode(val);
+      const newNode = new LinkedListNode(val);
 
       let count = 1;
       let currentNode = this.head;
@@ -116,17 +116,17 @@ export default class LinkedList {
     return this;
   }
 
-  delete(val: unknown) {
+  delete(val: T) {
     if (!this.head) return null;
-    let deleteNode: ListNode | null = null;
+    let deleteNode: LinkedListNode<T> | null = null;
 
-    let dummyNode = new ListNode(-1);
+    let dummyNode = new LinkedListNode(null);
     dummyNode.next = this.head;
 
     let currentNode = dummyNode;
 
     while (currentNode.next) {
-      if (currentNode.next.val === val) {
+      if (currentNode.next.value === val) {
         deleteNode = currentNode.next;
         currentNode.next = currentNode.next.next;
       } else {
@@ -135,7 +135,7 @@ export default class LinkedList {
     }
 
     // 处理tail
-    if (this.tail.val === val) {
+    if (this.tail.value === val) {
       this.tail = currentNode;
     }
 
@@ -144,8 +144,103 @@ export default class LinkedList {
     return deleteNode;
   }
 
+  deleteTail() {
+    let deleteNode: LinkedListNode<T> | null = null;
+    if (!this.head) return deleteNode;
+    let dummyNode = new LinkedListNode(null);
+    dummyNode.next = this.head;
+    let currentNode = dummyNode;
+
+    while (currentNode.next) {
+      let next = currentNode.next;
+      if (next && !next.next) {
+        currentNode.next = currentNode.next.next;
+        this.tail = currentNode;
+        deleteNode = next;
+      }
+      currentNode = next;
+    }
+
+    this.head = dummyNode.next;
+    if (!this.head) this.tail = null;
+
+    return deleteNode;
+  }
+
+  deleteHead() {
+    if (!this.head) return null;
+
+    let deleteNode = this.head;
+    if (this.head.next) {
+      this.head = this.head.next;
+    } else {
+      this.head = null;
+      this.tail = null;
+    }
+
+    return deleteNode;
+  }
+
+  find(target: { value?: T; callback?: (v: T) => boolean }) {
+    if (!this.head) return null;
+    let targetNode: LinkedListNode<T> = null;
+    let currentNode = this.head;
+    while (currentNode) {
+      if (
+        (target.value && currentNode.value === target.value) ||
+        (target.callback && target.callback(currentNode.value))
+      ) {
+        targetNode = currentNode;
+        break;
+      }
+      currentNode = currentNode.next;
+    }
+
+    return targetNode;
+  }
+
+  fromArray(arr: T[]) {
+    arr.forEach((a) => this.append(a));
+    return this;
+    // let currentNode = null;
+    // for (let index = 0; index < arr.length; index++) {
+    //   const element = arr[index];
+    //   const newNode = new ListNode(element);
+    //   if (!currentNode) {
+    //     currentNode = newNode;
+    //     this.head = currentNode;
+    //   } else {
+    //     currentNode.next = newNode;
+    //     currentNode = newNode;
+    //   }
+
+    //   if (index === arr.length) {
+    //     this.tail = newNode;
+    //   }
+    // }
+    // return this;
+  }
+
+  reverse() {
+    if (!this.head || !this.head.next) return this.head;
+    let dummy: LinkedListNode<T> | null = null;
+    let currentNode = this.head;
+    while (currentNode) {
+      let next = currentNode.next;
+      currentNode.next = dummy;
+      if (!dummy) {
+        this.tail = currentNode;
+      }
+      dummy = currentNode;
+      currentNode = next;
+    }
+
+    this.head = dummy;
+    return dummy;
+  }
+
   toArray() {
-    const arr: ListNode[] = [];
+    const arr: LinkedListNode<T>[] = [];
 
     let currentNode = this.head;
     while (currentNode) {
@@ -156,7 +251,7 @@ export default class LinkedList {
     return arr;
   }
 
-  toString(callback?: (e: unknown) => void) {
+  toString(callback?: (e: T) => void) {
     return this.toArray()
       .map((e) => e.toString(callback))
       .toString();

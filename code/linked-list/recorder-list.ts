@@ -11,9 +11,11 @@
 
 import { ListNode } from "./LinkedList";
 
-const linked1 = new ListNode(1).append(
-  new ListNode(2).append(
-    new ListNode(3).append(new ListNode(4).append(new ListNode(5)))
+const linked1 = new ListNode({ val: 1 }).append(
+  new ListNode({ val: 2 }).append(
+    new ListNode({ val: 3 }).append(
+      new ListNode({ val: 4 }).append(new ListNode({ val: 5 }))
+    )
   )
 );
 

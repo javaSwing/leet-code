@@ -5,16 +5,18 @@
 
 import { ListNode } from "./LinkedList";
 
-const linked1 = new ListNode(1).append(
-  new ListNode(2).append(
-    new ListNode(3).append(new ListNode(4).append(new ListNode(5)))
+const linked1 = new ListNode({ val: 1 }).append(
+  new ListNode({ val: 2 }).append(
+    new ListNode({ val: 3 }).append(
+      new ListNode({ val: 4 }).append(new ListNode({ val: 5 }))
+    )
   )
 );
 
 // 时间复杂度 O(n),空间复杂度为 O(1)
 function removeElements(head: ListNode | null, val: number) {
   if (!head) return head;
-  let dummyNode = new ListNode(-1);
+  let dummyNode = new ListNode({ val: -1 });
   dummyNode.next = head;
   let curr = dummyNode;
   while (curr.next) {

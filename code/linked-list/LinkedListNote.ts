@@ -1,9 +1,13 @@
-export class LinkedListNode {
-  value: unknown;
-  next: LinkedListNode | null;
+export class LinkedListNode<T> {
+  value: T;
+  next: LinkedListNode<T> | null;
 
-  constructor(val: unknown, next = null) {
+  constructor(val: T, next = null) {
     this.value = val;
     this.next = next;
+  }
+
+  toString(callback?: (e: T) => void) {
+    return callback ? callback(this.value) : `${this.value}`;
   }
 }
