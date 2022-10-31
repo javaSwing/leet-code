@@ -12,9 +12,6 @@
             "es6",
             "dom"
         ],
-        "types": [
-            "reflect-metadata"
-        ],
         "moduleResolution": "node",
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true
