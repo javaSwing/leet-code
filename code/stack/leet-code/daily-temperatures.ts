@@ -32,19 +32,35 @@
  * 时间为：O(n)
  * 空间为：O(n)
  **/
+// function dailyTemperatures(temperatures: number[]): number[] {
+//   const stack = [];
+//   const l = temperatures.length;
+//   const arr = new Array(l).fill(0);
+//   for (let index = 0; index < temperatures.length; index++) {
+//     while (
+//       stack.length > 0 &&
+//       temperatures[index] > temperatures[stack[stack.length - 1]]
+//     ) {
+//       const pre = stack.pop();
+//       arr[pre] = index - pre;
+//     }
+
+//     stack.push(index);
+//   }
+//   return arr;
+// }
+
 function dailyTemperatures(temperatures: number[]): number[] {
   const stack = [];
   const l = temperatures.length;
   const arr = new Array(l).fill(0);
-  for (let index = 0; index < temperatures.length; index++) {
-    while (
-      stack.length > 0 &&
-      temperatures[index] > temperatures[stack[stack.length - 1]]
-    ) {
-      const pre = stack.pop();
-      arr[pre] = index - pre;
-    }
 
+  for (let index = l - 1; index >= 0; index--) {
+    const current = temperatures[index];
+    while (stack.length && temperatures[stack[stack.length - 1]] <= current) {
+      stack.pop();
+    }
+    arr[index] = stack.length ? stack[stack.length - 1] - index : 0;
     stack.push(index);
   }
   return arr;
