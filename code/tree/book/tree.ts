@@ -14,7 +14,7 @@ export default class BinarySearchTree<T> {
 
   insert(key: T) {
     if (this.root == null) {
-      this.root = new TreeNode(key);
+      this.root = new TreeNode<T>(key);
     } else {
       this.insertNode(this.root, key);
     }
@@ -25,7 +25,7 @@ export default class BinarySearchTree<T> {
    * @param node
    * @param key
    */
-  private insertNode(node: TreeNode, key: T) {
+  private insertNode(node: TreeNode<T>, key: T) {
     if (this.compareFn(node.key, key) === COMPARE_ENUM.LESS_THAN) {
       // 当前值小于传入的节点，则按左侧插入处理
       if (node.left === null) {
@@ -87,11 +87,128 @@ export default class BinarySearchTree<T> {
   postOrderTraverse(callback: CallBackType) {
     this.postOrderTraverseNode(this.root, callback);
   }
+
   private postOrderTraverseNode(node: TreeNode<T>, callback: CallBackType) {
     if (node !== null) {
       this.postOrderTraverseNode(node.left, callback);
       this.postOrderTraverseNode(node.right, callback);
       callback(node.key);
+    }
+  }
+
+  // 搜索部分
+
+  /**
+   * 搜索最小值
+   * @param key
+   * @returns
+   *
+   * 按照树结构的数据结构形式，左小，右大。找最小值也就是在树的最左侧查找
+   */
+  min() {
+    return this.miniNode(this.root);
+  }
+
+  private miniNode(node: TreeNode<T>) {
+    let current = node;
+    // 如果这里只写 current !== null ,那么返回的node必须为null
+    while (current !== null && current.left !== null) {
+      current = current.left;
+    }
+    return current;
+  }
+
+  max() {
+    return this.maxNode(this.root);
+  }
+  private maxNode(node: TreeNode<T>) {
+    let current = node;
+
+    while (current !== null && current.right !== null) {
+      current = current.right;
+    }
+
+    return current;
+  }
+
+  /**
+   * 搜索一个特定的值
+   * @param key
+   * 搜索的功能拆解：
+   * 1. 先比较当前节点的值与搜索特定的值的大小，进而决定向左或者向右进行搜索
+   */
+  search(key: T) {
+    return this.searchNode(this.root, key);
+  }
+
+  private searchNode<T>(root: TreeNode<T>, key: T) {
+    if (root == null) {
+      return false;
+    } else {
+      if (this.compareFn(root.key, key) === COMPARE_ENUM.LESS_THAN) {
+        return this.searchNode(root.left, key);
+      } else if (this.compareFn(root.key, key) === COMPARE_ENUM.BIGGER_THAN) {
+        return this.searchNode(root.right, key);
+      } else {
+        return true;
+      }
+    }
+  }
+
+  /**
+   * 移除一个特定的节点
+   * @param key
+   */
+  remove(key: T) {
+    this.root = this.removeNode(this.root, key);
+  }
+
+  /**
+   * 辅助方法最终返回的还是修改后的节点本身
+   * @param node
+   * @param key
+   * @returns
+   */
+  private removeNode(node: TreeNode<T>, key: T) {
+    if (node === null) {
+      return null;
+    }
+    if (this.compareFn(node.key, key) === COMPARE_ENUM.LESS_THAN) {
+      // 比当前节点小
+      node.left = this.removeNode(node.left, key);
+      return node;
+    } else if (this.compareFn(node.key, key) === COMPARE_ENUM.BIGGER_THAN) {
+      // 比当前节点大
+      node.right = this.removeNode(node.right, key);
+      return node;
+    } else {
+      // 查找到与当前值相等的节点
+      if (node.left === null && node.right === null) {
+        // 如果节点为最深层节点，即没有左节点也没有右节点
+        node = null;
+        return node;
+      }
+
+      if (node.left === null) {
+        // 只有左节点为空
+        node = node.right;
+        return node;
+      }
+
+      if (node.right === null) {
+        // 只有右节点为空
+        node = node.left;
+        return node;
+      }
+
+      // 一个正常的节点在，即有左节点也有右节点
+      // 1. 先查找右侧最小的节点
+      const aux = this.miniNode(node.right);
+      // 把右侧最小的节点的值赋值给当前节点，即移除了当前的节点
+      node.key = aux.key;
+      // 从右侧中把最小的节点给移除了
+      node.right = this.removeNode(node.right, aux.key);
+      return node;
     }
   }
 }

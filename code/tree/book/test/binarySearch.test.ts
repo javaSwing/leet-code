@@ -35,7 +35,28 @@ describe("BinarySearch.test", () => {
   //   tree.prevOrderTraverse(fn);
   // });
 
-  it("postOrderTraverse", () => {
-    tree.postOrderTraverse(fn);
+  // it("postOrderTraverse", () => {
+  //   tree.postOrderTraverse(fn);
+  // });
+
+  it("min", () => {
+    const mi = tree.min();
+    expect(mi.key).toBe(3);
+  });
+
+  it("max", () => {
+    const max = tree.max();
+    expect(max.key).toBe(25);
+  });
+
+  it("search", () => {
+    const target = tree.search(13);
+    expect(target).toBe(true);
+  });
+
+  it("remove", () => {
+    const target = tree.remove(15);
+    // expect(target).toBe(true);
+    console.log("target", tree);
   });
 });

@@ -1,12 +1,12 @@
 export const enum COMPARE_ENUM {
   LESS_THAN,
-  MUCH_THAN,
+  BIGGER_THAN,
   EQ,
 }
 
-export function defaultCompare(nodeKey: unknown, key: unknown) {
-  if (key < nodeKey) return COMPARE_ENUM.LESS_THAN;
-  if (key > nodeKey) return COMPARE_ENUM.MUCH_THAN;
+export function defaultCompare(firstKey: unknown, secondKey: unknown) {
+  if (secondKey < firstKey) return COMPARE_ENUM.LESS_THAN;
+  if (secondKey > firstKey) return COMPARE_ENUM.BIGGER_THAN;
   return COMPARE_ENUM.EQ;
 }
 

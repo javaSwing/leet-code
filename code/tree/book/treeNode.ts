@@ -1,9 +1,9 @@
-export default class TreeNode<T = unknown> {
-  key: T;
-  left: TreeNode<T>;
-  right: TreeNode<T>;
+export default class TreeNode<P> {
+  key: P;
+  left: TreeNode<P>;
+  right: TreeNode<P>;
 
-  constructor(key: T) {
+  constructor(key: P) {
     this.key = key;
     this.left = null;
     this.right = null;
