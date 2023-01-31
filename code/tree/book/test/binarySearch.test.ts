@@ -1,4 +1,4 @@
-import BinarySearchTree from "../tree";
+import BinarySearchTree from "../binary-search-tree";
 
 describe("BinarySearch.test", () => {
   it("should create empty tree", () => {
