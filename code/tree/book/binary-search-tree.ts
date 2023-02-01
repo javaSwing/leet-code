@@ -25,7 +25,7 @@ export default class BinarySearchTree<T> {
    * @param node
    * @param key
    */
-  private insertNode(node: TreeNode<T>, key: T) {
+  insertNode(node: TreeNode<T>, key: T) {
     if (this.compareFn(node.key, key) === COMPARE_ENUM.LESS_THAN) {
       // 当前值小于传入的节点，则按左侧插入处理
       if (node.left === null) {
@@ -169,7 +169,7 @@ export default class BinarySearchTree<T> {
    * @param key
    * @returns
    */
-  private removeNode(node: TreeNode<T>, key: T) {
+  removeNode(node: TreeNode<T>, key: T) {
     if (node === null) {
       return null;
     }
