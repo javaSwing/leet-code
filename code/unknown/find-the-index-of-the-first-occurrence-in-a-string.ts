@@ -35,3 +35,4 @@ function strStr(haystack: string, needle: string): number {
 }
 
 // @todo KMP 解法 解法
+// @link https://www.zhihu.com/question/21923021/answer/281346746
