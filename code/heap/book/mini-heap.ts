@@ -2,7 +2,7 @@
  * 最小堆的实现
  */
 
-import { CompareType, COMPARE_ENUM, defaultCompare } from "./util";
+import { CompareType, COMPARE_ENUM, defaultCompare } from "../book/util";
 
 export class MiniHeap<T extends number> {
   compareFun: CompareType;
