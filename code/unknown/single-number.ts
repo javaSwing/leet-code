@@ -10,6 +10,6 @@
  * 解题思路：用位运算处理 ^ (异或)
  * 在位运算中: a ^ a = 0; 0 ^ a = a;
  */
-function singleNumber(nums: number[]): number {
+function singleNumber1(nums: number[]): number {
   return nums.reduce((pre, curr) => pre ^ curr, 0);
 }
