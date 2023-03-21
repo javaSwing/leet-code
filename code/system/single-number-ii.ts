@@ -17,4 +17,16 @@ function singleNumber2(nums: number[]): number {
   return +Object.keys(obj).find((k) => obj[k] === 1);
 }
 
-// @todo 补充位运算
+// 补充位运算
+function singleNumber(nums: number[]): number {
+  let ret = 0;
+  for (let i = 0; i < 32; i++) {
+    const t = 1 << i;
+    let count = 0;
+    nums.forEach((n) => {
+      if (n & t) count++;
+    });
+    if (count % 3) ret |= t;
+  }
+  return ret;
+}
