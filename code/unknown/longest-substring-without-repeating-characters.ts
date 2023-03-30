@@ -7,7 +7,7 @@
  *
  * 自己写的
  */
-function lengthOfLongestSubstring(s: string): number {
+function lengthOfLongestSubstring0(s: string): number {
   let length = s.length;
   let max = 0,
     tmp = "";
@@ -33,3 +33,26 @@ function lengthOfLongestSubstring(s: string): number {
  */
 
 // function lengthOfLongestSubstring2();
+
+function lengthOfLongestSubstring(s: string): number {
+  let length = s.length;
+  let max = 0;
+  let left = 0;
+  let map = new Map();
+  for (let i = 0; i < length; i++) {
+    const curr = s[i];
+
+    if (map.has(curr) && map.get(curr) >= left) {
+      // 左指针变成当前值的索引 + 1
+      left = map.get(curr) + 1;
+    }
+
+    // i - left 表示为当前不重复字符串的索引差， + 1 为其长度
+    max = Math.max(max, i - left + 1);
+    map.set(curr, i);
+  }
+  return max;
+}
+
+const t = "pwwkew";
+console.log(lengthOfLongestSubstring(t));
