@@ -1,54 +1,52 @@
-interface IDictionary {
-  add(key: string, value: any): void;
-  remove(key: string): void;
-  containsKey(key: string): boolean;
-  keys(): string[];
-  values(): any[];
-}
+// 2023-04-19 暂时代码copy 自
+// @link https://github.com/XPoet/js-data-structures-and-algorithms/blob/master/src/Map/map.js
 
-export default class Dictionary {
-  _keys: string[] = [];
-  _values: any[] = [];
+export default class Map<T extends any> {
+  items: Record<string, T>;
 
-  constructor(init: { key: string; value: any }[] = []) {
-    for (var x = 0; x < init.length; x++) {
-      this[init[x].key] = init[x].value;
-      this._keys.push(init[x].key);
-      this._values.push(init[x].value);
-    }
+  constructor() {
+    this.items = {};
   }
 
-  add(key: string, value: any) {
-    this[key] = value;
-    this._keys.push(key);
-    this._values.push(value);
+  // has(key) 判断字典中是否存在某个 key
+  has(key: string) {
+    return this.items.hasOwnProperty(key);
   }
 
-  remove(key: string) {
-    var index = this._keys.indexOf(key, 0);
-    this._keys.splice(index, 1);
-    this._values.splice(index, 1);
-
-    delete this[key];
+  // set(key, value) 在字典中添加键值对
+  set(key: string, value: T) {
+    this.items[key] = value;
   }
 
-  keys(): string[] {
-    return this._keys;
+  // remove(key) 在字典中删除指定的 key
+  remove(key:string) {
+    // 如果集合不存在该 key，返回 false
+    if (!this.has(key)) return false;
+    delete this.items[key];
   }
 
-  values(): any[] {
-    return this._values;
+  // get(key) 获取指定 key 的 value，如果没有，返回 undefined
+  get(key:string) {
+    return this.has(key) ? this.items[key] : undefined;
   }
 
-  containsKey(key: string) {
-    if (typeof this[key] === "undefined") {
-      return false;
-    }
-
-    return true;
+  // 获取所有的 key
+  keys() {
+    return Object.keys(this.items);
   }
 
-  toLookup(): IDictionary {
-    return this;
+  // 获取所有的 value
+  values() {
+    return Object.values(this.items);
+  }
+
+  // size() 获取字典中的键值对个数
+  size() {
+    return this.keys().length;
+  }
+
+  // clear() 清空字典中所有的键值对
+  clear() {
+    this.items = {};
   }
 }
