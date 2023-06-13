@@ -5,15 +5,15 @@
  * 思路为找到数组中最小的数值，放到最前面。然后依次处理整个数组
  * 时间 O(n2)
  * 空间 O(1)
+ * 
+ * 相比于冒泡排序：效率高在进行位置交换时，次数少于bubbleSort
  */
 
 
 const a = [5, 4, 3, 2, 1];
 
 
-const b = [5, 4, 3, 2, 1];
-
-
+const e = [5, 4, 3, 2, 1];
 
 
 
@@ -37,7 +37,7 @@ function selectionSort(arr: number[]) {
 
 
 console.time("selectionSort");
-console.log(selectionSort(b));
+console.log(selectionSort(e));
 console.timeEnd("selectionSort"); // 2.4ms
 
 
