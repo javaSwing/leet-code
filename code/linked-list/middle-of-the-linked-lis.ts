@@ -1,4 +1,4 @@
-import { ListNode } from "./LinkedList";
+import { type ListNode } from './LinkedList';
 
 /**
  * 876. 链表的中间结点

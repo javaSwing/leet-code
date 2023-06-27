@@ -1,4 +1,4 @@
-import Queue from "../Queue";
+import Queue from '../Queue';
 
 function hotPotato(elementList: any[], num: number) {
   const queue = new Queue();
@@ -22,7 +22,7 @@ function hotPotato(elementList: any[], num: number) {
   };
 }
 
-const names = ["John", "Jack", "Camila", "Ingrid", "Carl"];
+const names = ['John', 'Jack', 'Camila', 'Ingrid', 'Carl'];
 const result = hotPotato(names, 7);
 
 console.log(hotPotato(names, 3));

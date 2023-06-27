@@ -8,12 +8,12 @@
  * 自己写的
  */
 function lengthOfLongestSubstring0(s: string): number {
-  let length = s.length;
+  const length = s.length;
   let max = 0,
-    tmp = "";
+    tmp = '';
   for (let i = 0; i < length; i++) {
     const singleChar = s.charAt(i);
-    let index = tmp.indexOf(singleChar);
+    const index = tmp.indexOf(singleChar);
     tmp += singleChar;
     if (index > -1) {
       tmp = tmp.substring(index + 1);
@@ -35,10 +35,10 @@ function lengthOfLongestSubstring0(s: string): number {
 // function lengthOfLongestSubstring2();
 
 function lengthOfLongestSubstring(s: string): number {
-  let length = s.length;
+  const length = s.length;
   let max = 0;
   let left = 0;
-  let map = new Map();
+  const map = new Map();
   for (let i = 0; i < length; i++) {
     const curr = s[i];
 
@@ -54,5 +54,5 @@ function lengthOfLongestSubstring(s: string): number {
   return max;
 }
 
-const t = "pwwkew";
+const t = 'pwwkew';
 console.log(lengthOfLongestSubstring(t));

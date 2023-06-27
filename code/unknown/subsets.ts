@@ -17,9 +17,9 @@
  */
 
 function subsets(nums: number[]): number[][] {
-  let result: number[][] = new Array([]);
+  const result: number[][] = new Array([]);
   for (let i = 0; i < nums.length; i++) {
-    let size = result.length;
+    const size = result.length;
     for (let j = 0; j < size; j++) {
       result.push([...result[j], nums[i]]);
     }

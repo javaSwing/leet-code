@@ -31,10 +31,7 @@ function finalPrices(prices: number[]): number[] {
       stack.pop();
     }
 
-    ans[index] =
-      stack.length === 0
-        ? prices[index]
-        : prices[index] - stack[stack.length - 1];
+    ans[index] = stack.length === 0 ? prices[index] : prices[index] - stack[stack.length - 1];
     stack.push(prices[index]);
   }
   return ans;

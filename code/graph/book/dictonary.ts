@@ -1,7 +1,7 @@
 // 2023-04-19 暂时代码copy 自
 // @link https://github.com/XPoet/js-data-structures-and-algorithms/blob/master/src/Map/map.js
 
-export default class Map<T extends any> {
+export default class Map<T> {
   items: Record<string, T>;
 
   constructor() {
@@ -10,6 +10,7 @@ export default class Map<T extends any> {
 
   // has(key) 判断字典中是否存在某个 key
   has(key: string) {
+    // eslint-disable-next-line no-prototype-builtins
     return this.items.hasOwnProperty(key);
   }
 
@@ -19,14 +20,15 @@ export default class Map<T extends any> {
   }
 
   // remove(key) 在字典中删除指定的 key
-  remove(key:string) {
+  remove(key: string) {
     // 如果集合不存在该 key，返回 false
     if (!this.has(key)) return false;
     delete this.items[key];
+    return true;
   }
 
   // get(key) 获取指定 key 的 value，如果没有，返回 undefined
-  get(key:string) {
+  get(key: string) {
     return this.has(key) ? this.items[key] : undefined;
   }
 

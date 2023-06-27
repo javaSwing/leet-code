@@ -2,7 +2,7 @@
  * 最小堆的实现
  */
 
-import { CompareType, COMPARE_ENUM, defaultCompare } from "../book/util";
+import { type CompareType, COMPARE_ENUM, defaultCompare } from '../book/util';
 
 export class MiniHeap<T extends number> {
   compareFun: CompareType;
@@ -34,8 +34,7 @@ export class MiniHeap<T extends number> {
 
     while (
       index > 0 &&
-      this.compareFun(this.heap[index], this.heap[parentIndex]) ===
-        COMPARE_ENUM.LESS_THAN
+      this.compareFun(this.heap[index], this.heap[parentIndex]) === COMPARE_ENUM.LESS_THAN
     ) {
       this.swap(this.heap, parentIndex, index);
       index = parentIndex;
@@ -61,14 +60,13 @@ export class MiniHeap<T extends number> {
 
   public siftDown(index: number) {
     let element = index;
-    let leftIndex = this.getLeftIndex(index);
-    let rightIndex = this.getRightIndex(index);
+    const leftIndex = this.getLeftIndex(index);
+    const rightIndex = this.getRightIndex(index);
     const size = this.size();
     // 先比较左的是否比根节点小
     if (
       leftIndex < size &&
-      this.compareFun(this.heap[element], this.heap[leftIndex]) ===
-        COMPARE_ENUM.BIGGER_THAN
+      this.compareFun(this.heap[element], this.heap[leftIndex]) === COMPARE_ENUM.BIGGER_THAN
     ) {
       // 调整当前索引为小值的
       element = leftIndex;
@@ -77,8 +75,7 @@ export class MiniHeap<T extends number> {
     // 如果上面的if执行了，就是比较左子节点和右子节点谁dd
     if (
       rightIndex < size &&
-      this.compareFun(this.heap[element], this.heap[rightIndex]) ===
-        COMPARE_ENUM.BIGGER_THAN
+      this.compareFun(this.heap[element], this.heap[rightIndex]) === COMPARE_ENUM.BIGGER_THAN
     ) {
       // 调整当前索引
       element = rightIndex;

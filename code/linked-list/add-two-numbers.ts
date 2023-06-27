@@ -3,7 +3,7 @@
  * @link https://leetcode.cn/problems/add-two-numbers/
  */
 
-import { ListNode } from "./LinkedList";
+import { ListNode } from './LinkedList';
 
 /**
  * 迭代解法
@@ -28,17 +28,14 @@ import { ListNode } from "./LinkedList";
  *
  *
  */
-function addTwoNumbersIterative(
-  l1: ListNode | null,
-  l2: ListNode | null
-): ListNode | null {
+function addTwoNumbersIterative(l1: ListNode | null, l2: ListNode | null): ListNode | null {
   const pre = new ListNode(0);
   let cur = pre;
   let bit = 0;
 
   while (l1 || l2) {
-    let trueL1 = l1 ? l1.val : 0;
-    let trueL2 = l2 ? l2.val : 0;
+    const trueL1 = l1 ? l1.val : 0;
+    const trueL2 = l2 ? l2.val : 0;
     let sum = trueL1 + trueL2 + bit;
 
     bit = Math.floor(sum / 10);
@@ -71,9 +68,9 @@ function add(l1: ListNode | null, l2: ListNode | null, bit: number) {
   if (!l1 && !l2) {
     return bit > 0 ? new ListNode(bit) : null;
   }
-  let trueL1 = l1 ? l1.val : 0;
-  let trueL2 = l2 ? l2.val : 0;
-  let sum = trueL1 + trueL2 + bit;
+  const trueL1 = l1 ? l1.val : 0;
+  const trueL2 = l2 ? l2.val : 0;
+  const sum = trueL1 + trueL2 + bit;
 
   const target = new ListNode(sum % 10);
   target.next = add(l1?.next, l2?.next, Math.floor(sum / 10));

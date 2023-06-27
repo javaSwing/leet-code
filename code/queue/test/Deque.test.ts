@@ -1,31 +1,31 @@
-import Deque from "../Deque";
+import Deque from '../Deque';
 
-describe("Dequeue", () => {
-  it("should create empty queue", () => {
+describe('Dequeue', () => {
+  it('should create empty queue', () => {
     const queue = new Deque();
     expect(queue).not.toBeNull();
     expect(queue.items).not.toBeNull();
   });
 
-  it("should addBack data to queue", () => {
+  it('should addBack data to queue', () => {
     const queue = new Deque();
 
     queue.addBack(1);
     queue.addBack(2);
 
-    expect(queue.toString()).toBe("1,2");
+    expect(queue.toString()).toBe('1,2');
   });
 
-  it("should addFont data to queue", () => {
+  it('should addFont data to queue', () => {
     const queue = new Deque();
 
     queue.addFront(1);
     queue.addFront(2);
 
-    expect(queue.toString()).toBe("2,1");
+    expect(queue.toString()).toBe('2,1');
   });
 
-  it("removeFront data to queue", () => {
+  it('removeFront data to queue', () => {
     const queue = new Deque();
 
     queue.addBack(90);
@@ -33,10 +33,10 @@ describe("Dequeue", () => {
 
     queue.removeFront();
 
-    expect(queue.toString()).toBe("100");
+    expect(queue.toString()).toBe('100');
   });
 
-  it("removeBack data to queue", () => {
+  it('removeBack data to queue', () => {
     const queue = new Deque();
 
     queue.addBack(90);
@@ -44,7 +44,7 @@ describe("Dequeue", () => {
 
     queue.removeBack();
 
-    expect(queue.toString()).toBe("90");
+    expect(queue.toString()).toBe('90');
   });
 
   // it("should be possible to enqueue/dequeue objects", () => {

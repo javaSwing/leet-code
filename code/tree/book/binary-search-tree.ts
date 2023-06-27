@@ -1,5 +1,5 @@
-import TreeNode from "./treeNode";
-import { CompareType, COMPARE_ENUM, defaultCompare } from "./util";
+import TreeNode from './treeNode';
+import { type CompareType, COMPARE_ENUM, defaultCompare } from './util';
 
 type CallBackType = (key?: unknown) => void;
 

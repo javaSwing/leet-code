@@ -5,7 +5,7 @@
  * @link https://leetcode.cn/problems/counting-bits/
  */
 function countBits(n: number): number[] {
-  let result = [];
+  const result = [];
   for (let i = 0; i <= n; i++) {
     let count = 0;
     let t = i;

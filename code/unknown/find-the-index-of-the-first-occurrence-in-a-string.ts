@@ -20,11 +20,12 @@ function strStr2(haystack: string, needle: string): number {
  */
 function strStr(haystack: string, needle: string): number {
   if (!needle.length) return 0;
-  let nLength = needle.length,
+  const nLength = needle.length,
     hLength = haystack.length;
   for (let i = 0; i + nLength <= hLength; i++) {
     // 如果当前的索引加needle的长度，与haystack的长度相同时，如果不匹配就不会再有结果。
-    for (var j = 0; j < nLength; j++) {
+    let j;
+    for (j = 0; j < nLength; j++) {
       if (haystack[i + j] !== needle[j]) {
         break;
       }

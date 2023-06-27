@@ -1,12 +1,10 @@
-import { ListNode } from "./LinkedList";
+import { ListNode } from './LinkedList';
 /**
  * 83. 删除排序链表中的重复元素
  * @see https://leetcode.cn/problems/remove-duplicates-from-sorted-list/
  */
 
-const linked1 = new ListNode({ val: -1 }).append(
-  new ListNode({ val: 0 }).append(new ListNode(2))
-);
+const linked1 = new ListNode({ val: -1 }).append(new ListNode({ val: 0 }).append(new ListNode(2)));
 
 /**
  * 暴力破解法（很笨的一个方法）

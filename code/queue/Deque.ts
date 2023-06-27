@@ -44,7 +44,7 @@ export default class Deque<T> {
 
   removeFront() {
     if (this.isEmpty()) return null;
-    let d = this.items[this.lowestCount];
+    const d = this.items[this.lowestCount];
     delete this.items[this.lowestCount];
     this.lowestCount++;
     return d;
@@ -52,7 +52,7 @@ export default class Deque<T> {
 
   removeBack() {
     if (this.isEmpty()) return null;
-    let d = this.items[this.count];
+    const d = this.items[this.count];
     delete this.items[this.count];
     this.count--;
     return d;
@@ -74,6 +74,6 @@ export default class Deque<T> {
       const element = this.items[index];
       formateArr.push(callBack ? callBack(element) : element);
     }
-    return formateArr.join(",");
+    return formateArr.join(',');
   }
 }

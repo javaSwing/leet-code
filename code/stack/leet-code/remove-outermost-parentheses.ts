@@ -29,12 +29,12 @@
 // }
 
 function removeOuterParentheses(s: string): string {
-  let res = "";
+  let res = '';
   const stack = [];
   for (let index = 0; index < s.length; index++) {
     const element = s[index];
 
-    if (element === ")") {
+    if (element === ')') {
       stack.pop();
     }
 
@@ -42,13 +42,13 @@ function removeOuterParentheses(s: string): string {
       res += element;
     }
 
-    if (element === "(") {
+    if (element === '(') {
       stack.push(element);
     }
   }
   return res;
 }
 
-const testStr = "(()())(())";
+const testStr = '(()())(())';
 
 console.log(removeOuterParentheses(testStr));

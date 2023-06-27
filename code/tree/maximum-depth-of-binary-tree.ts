@@ -16,7 +16,5 @@
  * 空间复杂度：O(height) height为节点最深的节点高度
  */
 function maxDepth(root: TreeNode | null): number {
-  return root === null
-    ? 0
-    : Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
+  return root === null ? 0 : Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
 }

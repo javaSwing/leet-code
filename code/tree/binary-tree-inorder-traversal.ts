@@ -22,13 +22,13 @@
  * 空间复杂度为 O(n)
  */
 function inorderTraversal(root: TreeNode | null): number[] {
-    const res: number[] = [];
-    const inorderNode = (node: TreeNode) => {
-        if(!node) return;
-        inorderNode(node.left);
-        res.push(node)
-        inorderNode(node.right);
-    }
-    inorderNode(root)
-    return res;
-};
+  const res: number[] = [];
+  const inorderNode = (node: TreeNode) => {
+    if (!node) return;
+    inorderNode(node.left);
+    res.push(node);
+    inorderNode(node.right);
+  };
+  inorderNode(root);
+  return res;
+}

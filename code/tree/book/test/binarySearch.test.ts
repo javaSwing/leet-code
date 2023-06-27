@@ -1,7 +1,7 @@
-import BinarySearchTree from "../binary-search-tree";
+import BinarySearchTree from '../binary-search-tree';
 
-describe("BinarySearch.test", () => {
-  it("should create empty tree", () => {
+describe('BinarySearch.test', () => {
+  it('should create empty tree', () => {
     const tree = new BinarySearchTree<number>();
     expect(tree.root).toBeNull();
     tree.insert(11);
@@ -39,24 +39,24 @@ describe("BinarySearch.test", () => {
   //   tree.postOrderTraverse(fn);
   // });
 
-  it("min", () => {
+  it('min', () => {
     const mi = tree.min();
     expect(mi.key).toBe(3);
   });
 
-  it("max", () => {
+  it('max', () => {
     const max = tree.max();
     expect(max.key).toBe(25);
   });
 
-  it("search", () => {
+  it('search', () => {
     const target = tree.search(13);
     expect(target).toBe(true);
   });
 
-  it("remove", () => {
+  it('remove', () => {
     const target = tree.remove(15);
     // expect(target).toBe(true);
-    console.log("target", tree);
+    console.log('target', tree);
   });
 });

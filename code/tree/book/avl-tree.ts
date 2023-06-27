@@ -1,6 +1,6 @@
-import BinarySearchTree from "./binary-search-tree";
-import TreeNode from "./treeNode";
-import { COMPARE_ENUM, defaultCompare } from "./util";
+import BinarySearchTree from './binary-search-tree';
+import TreeNode from './treeNode';
+import { COMPARE_ENUM, defaultCompare } from './util';
 
 /**
  * avl 树
@@ -25,10 +25,7 @@ export default class AVLTree<T> extends BinarySearchTree<T> {
   getNodeHeight(node: TreeNode<T>) {
     if (node === null) return -1;
     // 取节点的左侧高度、右侧高度的最大值 + 1 （1为自身节点高度）
-    return (
-      Math.max(this.getNodeHeight(node.left), this.getNodeHeight(node.right)) +
-      1
-    );
+    return Math.max(this.getNodeHeight(node.left), this.getNodeHeight(node.right)) + 1;
   }
 
   /**
@@ -36,8 +33,7 @@ export default class AVLTree<T> extends BinarySearchTree<T> {
    * 通过左边子树的高度与右边子树高度之差进行在 -1 1 0 之间即为平衡
    */
   isBalance(node: TreeNode<T>) {
-    const difference =
-      this.getNodeHeight(node.left) - this.getNodeHeight(node.right);
+    const difference = this.getNodeHeight(node.left) - this.getNodeHeight(node.right);
 
     switch (difference) {
       case -2:
@@ -167,16 +163,12 @@ export default class AVLTree<T> extends BinarySearchTree<T> {
       // 从左侧移除节点不平衡
       if (
         this.isBalance(node.left) === this.BalanceFactor.BALANCED ||
-        this.isBalance(node.left) ===
-          this.BalanceFactor.SLIGHTLY_UNBALANCED_LEFT
+        this.isBalance(node.left) === this.BalanceFactor.SLIGHTLY_UNBALANCED_LEFT
       ) {
         return this.rotationLL(node);
       }
 
-      if (
-        this.isBalance(node.left) ===
-        this.BalanceFactor.SLIGHTLY_UNBALANCED_RIGHT
-      ) {
+      if (this.isBalance(node.left) === this.BalanceFactor.SLIGHTLY_UNBALANCED_RIGHT) {
         return this.rotationLR(node);
       }
     }
@@ -184,16 +176,12 @@ export default class AVLTree<T> extends BinarySearchTree<T> {
     if (difference === this.BalanceFactor.UNBALANCED_RIGHT) {
       if (
         this.isBalance(node.right) === this.BalanceFactor.BALANCED ||
-        this.isBalance(node.right) ===
-          this.BalanceFactor.SLIGHTLY_UNBALANCED_RIGHT
+        this.isBalance(node.right) === this.BalanceFactor.SLIGHTLY_UNBALANCED_RIGHT
       ) {
         return this.rotateRR(node);
       }
 
-      if (
-        this.isBalance(node.left) ===
-        this.BalanceFactor.SLIGHTLY_UNBALANCED_LEFT
-      ) {
+      if (this.isBalance(node.left) === this.BalanceFactor.SLIGHTLY_UNBALANCED_LEFT) {
         return this.rotationRL(node);
       }
     }

@@ -1,12 +1,12 @@
-import Stack from "../Stack";
+import Stack from '../Stack';
 
 function decimalToBinary(decNumber: number) {
   const remStack = new Stack<number>();
   let number = decNumber;
-  let binaryString = "";
+  let binaryString = '';
 
   while (number > 0) {
-    let rem = Math.floor(number % 2);
+    const rem = Math.floor(number % 2);
     remStack.push(rem);
     number = Math.floor(number / 2);
   }

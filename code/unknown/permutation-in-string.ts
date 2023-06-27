@@ -9,18 +9,18 @@
  * 有一点：题目中说了 s1和s2只包含小写字母也就是说只有26个而已，在unicode中 a-z是连续的，然后递增1
  */
 function checkInclusion(s1: string, s2: string): boolean {
-  let s1Length = s1.length;
-  let s2Length = s2.length;
+  const s1Length = s1.length;
+  const s2Length = s2.length;
 
   //   长度小于不存在
   if (s2Length < s1Length) return false;
   //  相等时直接返回
   if (s1 === s2) return true;
 
-  let count1 = new Array(26).fill(0);
-  let count2 = new Array(26).fill(0);
+  const count1 = new Array(26).fill(0);
+  const count2 = new Array(26).fill(0);
 
-  let aUniCode = "a".charCodeAt(0);
+  const aUniCode = 'a'.charCodeAt(0);
 
   // 第一循环以s1为基准
 

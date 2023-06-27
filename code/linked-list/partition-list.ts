@@ -3,14 +3,12 @@
  * @see https://leetcode.cn/problems/partition-list/
  */
 
-import { ListNode } from "./LinkedList";
+import { ListNode } from './LinkedList';
 
 const linked1 = new ListNode({ val: 1 }).append(
   new ListNode({ val: 4 }).append(
     new ListNode({ val: 3 }).append(
-      new ListNode({ val: 2 }).append(
-        new ListNode({ val: 5 }).append(new ListNode({ val: 2 }))
-      )
+      new ListNode({ val: 2 }).append(new ListNode({ val: 5 }).append(new ListNode({ val: 2 })))
     )
   )
 );
@@ -31,9 +29,9 @@ const linked1 = new ListNode({ val: 1 }).append(
 
 function partition(head: ListNode | null, x: number): ListNode | null {
   if (!head || !head.next) return head;
-  let small = new ListNode();
+  const small = new ListNode();
   let smallHead = small;
-  let large = new ListNode();
+  const large = new ListNode();
   let largeHead = large;
   while (head) {
     if (head.val < x) {

@@ -1,4 +1,4 @@
-import { ListNode } from "./LinkedList";
+import { type ListNode } from './LinkedList';
 
 /**
  * 141. 环形链表

@@ -10,7 +10,7 @@
  * 对于此题：因为堆排序的时间复杂度是 O(n + klog2n), 若k <= nlog2n,可时间复杂度为O(n)
  */
 
-function findKthLargest(nums: number[], k: number): number {
+function findKthLargest2(nums: number[], k: number): number {
   // buildMiniHeap
   for (let i = Math.floor(nums.length / 2); i >= 0; i--) {
     heapfiy(nums, nums.length, i);
@@ -25,8 +25,8 @@ function findKthLargest(nums: number[], k: number): number {
 
 function heapfiy(arr: number[], size: number, index: number) {
   let element = index;
-  let leftIndex = 2 * index + 1;
-  let rightIndex = 2 * index + 2;
+  const leftIndex = 2 * index + 1;
+  const rightIndex = 2 * index + 2;
 
   if (leftIndex < size && arr[leftIndex] < arr[element]) {
     element = leftIndex;
@@ -37,12 +37,12 @@ function heapfiy(arr: number[], size: number, index: number) {
   }
 
   if (element !== index) {
-    swap(arr, element, index);
+    swap2(arr, element, index);
     heapfiy(arr, size, element);
   }
 }
 
-function swap(arr: number[], a: number, b: number) {
+function swap2(arr: number[], a: number, b: number) {
   const t = arr[a];
   arr[a] = arr[b];
   arr[b] = t;

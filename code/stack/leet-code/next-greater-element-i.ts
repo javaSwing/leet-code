@@ -40,7 +40,7 @@
 function nextGreaterElement(nums1: number[], nums2: number[]): number[] {
   const l = nums2.length;
   const map = new Map<number, number>();
-  const stack = [];
+  const stack: number[] = [];
   for (let index = l - 1; index >= 0; index--) {
     const num = nums2[index];
     while (stack.length && num >= stack[stack.length - 1]) {
@@ -51,13 +51,11 @@ function nextGreaterElement(nums1: number[], nums2: number[]): number[] {
     stack.push(num);
   }
 
-  const res = new Array<number>(nums1.length)
-    .fill(0)
-    .map((_, i) => map.get(nums1[i]));
+  const res = new Array<number>(nums1.length).fill(0).map((_, i) => map.get(nums1[i])) as number[];
   return res;
 }
 
-let nums1 = [4, 1, 2],
+const nums1 = [4, 1, 2],
   nums2 = [1, 3, 4, 2];
 
 console.log(nextGreaterElement(nums1, nums2));

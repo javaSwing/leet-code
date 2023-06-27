@@ -9,23 +9,21 @@
  * 2.循环重构链表奇数时取数组头部值，偶数时取尾数。取完为止
  */
 
-import { ListNode } from "./LinkedList";
+import { ListNode } from './LinkedList';
 
 const linked1 = new ListNode({ val: 1 }).append(
   new ListNode({ val: 2 }).append(
-    new ListNode({ val: 3 }).append(
-      new ListNode({ val: 4 }).append(new ListNode({ val: 5 }))
-    )
+    new ListNode({ val: 3 }).append(new ListNode({ val: 4 }).append(new ListNode({ val: 5 })))
   )
 );
 
 function reorderList(head: ListNode | null): void {
   if (!head) return;
-  let mid = middleNode(head);
-  let l2 = mid.next;
+  const mid = middleNode(head);
+  const l2 = mid.next;
   // 断开与反转node的链接，否则会形成环链表
   mid.next = null;
-  let l1 = head;
+  const l1 = head;
   const reverseNode = reverseList(l2);
   mergeList(l1, reverseNode);
 }
@@ -56,7 +54,7 @@ function middleNode(head: ListNode) {
 function reverseList(head: ListNode | null) {
   let dummy = null;
   while (head) {
-    let next = head.next;
+    const next = head.next;
     head.next = dummy;
     dummy = head;
     head = next;
@@ -74,8 +72,8 @@ function reverseList(head: ListNode | null) {
 function mergeList(l1: ListNode, l2: ListNode) {
   if (!l1 && !l2) return;
   while (l1 && l2) {
-    let l1Tmp = l1.next;
-    let l2Tmp = l2.next;
+    const l1Tmp = l1.next;
+    const l2Tmp = l2.next;
 
     l1.next = l2;
     l1 = l1Tmp;

@@ -22,8 +22,8 @@ function buildMiniHeap(nums: number[]) {
 
 function heapUp(arr: number[], size: number, index: number) {
   let element = index;
-  let leftIndex = 2 * index + 1;
-  let rightIndex = 2 * index + 2;
+  const leftIndex = 2 * index + 1;
+  const rightIndex = 2 * index + 2;
 
   if (leftIndex < size && arr[leftIndex] < arr[element]) {
     element = leftIndex;

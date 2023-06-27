@@ -35,7 +35,7 @@ export default class Stack<T> {
       const element = this.items[index];
       formateArr.push(callBack ? callBack(element) : element);
     }
-    return formateArr.reverse().join(",");
+    return formateArr.reverse().join(',');
   }
 
   toArray() {

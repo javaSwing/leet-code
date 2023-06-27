@@ -1,14 +1,13 @@
-import Graph from "../graph";
+import Graph from '../graph';
 
 describe('Graph', () => {
-    it('should add vertices to graph', () => {
-      const graph = new Graph();
-        
-      graph.addVertex("A");
+  it('should add vertices to graph', () => {
+    const graph = new Graph();
 
-      graph.addVertex("B");
+    graph.addVertex('A');
 
-      expect(graph.toString()).toBe('A,B');
-     
-    });
-})
+    graph.addVertex('B');
+
+    expect(graph.toString()).toBe('A,B');
+  });
+});

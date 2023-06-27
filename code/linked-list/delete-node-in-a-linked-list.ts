@@ -9,7 +9,7 @@
  * 3. 然后我就没有了
  */
 
-import { ListNode } from "./LinkedList";
+import { type ListNode } from './LinkedList';
 
 /**
  Do not return anything, modify it in-place instead.

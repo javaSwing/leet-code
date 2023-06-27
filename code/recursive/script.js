@@ -25,7 +25,6 @@ try {
   // console.log(factorialRecursive(5))
 } catch (error) {
   console.error(error);
-  console.error(i);
 }
 
 // ------------------------------------ 斐波那契数列
@@ -83,7 +82,7 @@ function fibonacci(n) {
 function fibonacciMemo(num) {
   const memo = [0, 1]; // 结果缓存数组
   if (memo[num] !== null) return memo[num]; // 直接从缓存取结果
-  return memo[num] = fibonacciMemo(num - 1) + fibonacciMemo(num - 2);
+  return (memo[num] = fibonacciMemo(num - 1) + fibonacciMemo(num - 2));
 }
 
 function fibonacciMemoization(n) {

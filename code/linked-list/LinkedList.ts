@@ -1,10 +1,10 @@
-import { LinkedListNode } from "./LinkedListNote";
-
+// @ts-nocheck
+import { LinkedListNode } from './LinkedListNote';
 export class ListNode<T = any> {
   val: T;
   next: ListNode<T> | null;
-  constructor(val: T, next: ListNode<T> = null) {
-    this.val = val;
+  constructor(val?: T, next: ListNode<T> | null = null) {
+    this.val = val ? val : null;
     this.next = next;
   }
 
@@ -45,8 +45,8 @@ export default class LinkedList<T> {
       return this;
     }
 
-    this.tail.next = newNode;
     this.tail = newNode;
+    this.tail.next = newNode;
     return this;
   }
 
@@ -120,7 +120,7 @@ export default class LinkedList<T> {
     if (!this.head) return null;
     let deleteNode: LinkedListNode<T> | null = null;
 
-    let dummyNode = new LinkedListNode(null);
+    const dummyNode = new LinkedListNode(null);
     dummyNode.next = this.head;
 
     let currentNode = dummyNode;
@@ -147,12 +147,12 @@ export default class LinkedList<T> {
   deleteTail() {
     let deleteNode: LinkedListNode<T> | null = null;
     if (!this.head) return deleteNode;
-    let dummyNode = new LinkedListNode(null);
+    const dummyNode = new LinkedListNode(null);
     dummyNode.next = this.head;
     let currentNode = dummyNode;
 
     while (currentNode.next) {
-      let next = currentNode.next;
+      const next = currentNode.next;
       if (next && !next.next) {
         currentNode.next = currentNode.next.next;
         this.tail = currentNode;
@@ -170,7 +170,7 @@ export default class LinkedList<T> {
   deleteHead() {
     if (!this.head) return null;
 
-    let deleteNode = this.head;
+    const deleteNode = this.head;
     if (this.head.next) {
       this.head = this.head.next;
     } else {
@@ -226,7 +226,7 @@ export default class LinkedList<T> {
     let dummy: LinkedListNode<T> | null = null;
     let currentNode = this.head;
     while (currentNode) {
-      let next = currentNode.next;
+      const next = currentNode.next;
       currentNode.next = dummy;
       if (!dummy) {
         this.tail = currentNode;

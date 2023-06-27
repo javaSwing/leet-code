@@ -32,7 +32,7 @@ export default class StackArray<T> {
 
   toString(callBack?: (v: T) => string) {
     const formateArr = callBack ? this.items.map(callBack) : this.items;
-    return formateArr.reverse().join(",");
+    return formateArr.reverse().join(',');
   }
 
   toArray() {

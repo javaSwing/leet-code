@@ -3,7 +3,7 @@
  * @see https://leetcode.cn/problems/reverse-linked-list/
  */
 
-import { ListNode } from "./LinkedList";
+import { ListNode } from './LinkedList';
 
 const linked1 = new ListNode({ val: 1 }).append(
   new ListNode({ val: 2 }).append(new ListNode({ val: 3 }))
@@ -59,7 +59,7 @@ function reverseList(head: ListNode | null) {
 
 function reverseHelper(head: ListNode, newHead: ListNode | null) {
   if (!head) return newHead;
-  let next = head.next;
+  const next = head.next;
   head.next = newHead;
   return reverseHelper(next, head);
 }

@@ -1,16 +1,11 @@
-import { ListNode } from "./LinkedList";
+import { ListNode } from './LinkedList';
 
 const linked1 = new ListNode({ val: -1 }).append(
   new ListNode({ val: 5 }).append(new ListNode({ val: 11 }))
 );
 // const linked2 = new ListNode(1).append(new ListNode(3).append(new ListNode(4)));
 const linked3 = new ListNode({ val: 6 }).append(new ListNode({ val: 10 }));
-const data = [
-  new ListNode({ val: null }),
-  linked1,
-  new ListNode({ val: null }),
-  linked3,
-];
+const data = [new ListNode({ val: null }), linked1, new ListNode({ val: null }), linked3];
 
 // ## 23. 合并K个升序链表
 // @see https://leetcode.cn/problems/merge-k-sorted-lists/
@@ -27,7 +22,7 @@ const data = [
  */
 function mergeKLists(lists: Array<ListNode | null>) {
   if (lists.length === 0) return null;
-  let temp = [];
+  const temp = [];
   for (let index = 0; index < lists.length; index++) {
     let linkNode = lists[index];
     while (linkNode) {

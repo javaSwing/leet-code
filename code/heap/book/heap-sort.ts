@@ -1,10 +1,10 @@
-import { CompareType, COMPARE_ENUM, defaultCompare } from "./util";
+import { type CompareType, COMPARE_ENUM, defaultCompare } from './util';
 
 export function heapSort(arr: number[], compareFn = defaultCompare) {
   let heapSize = arr.length;
   buildMaxHeap(arr, compareFn);
 
-  console.log("buildMaxHeap", arr);
+  console.log('buildMaxHeap', arr);
 
   while (heapSize > 1) {
     swap(arr, 0, --heapSize);
@@ -21,27 +21,16 @@ function buildMaxHeap(arr: number[], compareFn) {
   }
 }
 
-function heapify(
-  arr: number[],
-  index: number,
-  size: number,
-  compareFn: CompareType
-) {
+function heapify(arr: number[], index: number, size: number, compareFn: CompareType) {
   let element = index;
-  let leftIndex = 2 * index + 1;
-  let rightIndex = 2 * index + 2;
+  const leftIndex = 2 * index + 1;
+  const rightIndex = 2 * index + 2;
 
-  if (
-    leftIndex < size &&
-    compareFn(arr[leftIndex], arr[element]) === COMPARE_ENUM.BIGGER_THAN
-  ) {
+  if (leftIndex < size && compareFn(arr[leftIndex], arr[element]) === COMPARE_ENUM.BIGGER_THAN) {
     element = leftIndex;
   }
 
-  if (
-    rightIndex < size &&
-    compareFn(arr[rightIndex], arr[element]) === COMPARE_ENUM.BIGGER_THAN
-  ) {
+  if (rightIndex < size && compareFn(arr[rightIndex], arr[element]) === COMPARE_ENUM.BIGGER_THAN) {
     element = rightIndex;
   }
 
@@ -52,11 +41,11 @@ function heapify(
 }
 
 function swap(arr: number[], a: number, b: number) {
-  let t = arr[a];
+  const t = arr[a];
   arr[a] = arr[b];
   arr[b] = t;
 }
 
 const array = [7, 6, 3, 5, 4, 1, 2, 9];
-console.log("Before sorting: ", array);
-console.log("After sorting: ", heapSort(array));
+console.log('Before sorting: ', array);
+console.log('After sorting: ', heapSort(array));

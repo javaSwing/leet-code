@@ -29,9 +29,9 @@ function removeDuplicates(s: string): string {
     //   }
     // }
   }
-  return stack.join("");
+  return stack.join('');
 }
 
-const s = "abbaca";
+const s = 'abbaca';
 
 console.log(removeDuplicates(s));

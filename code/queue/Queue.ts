@@ -20,7 +20,7 @@ export default class Queue<T> {
 
   dequeue() {
     if (this.isEmpty()) return null;
-    let target = this.items[this.lowestCount];
+    const target = this.items[this.lowestCount];
     delete this.items[this.lowestCount];
     this.lowestCount++;
     return target;
@@ -45,6 +45,6 @@ export default class Queue<T> {
       const element = this.items[index];
       formateArr.push(callBack ? callBack(element) : element);
     }
-    return formateArr.join(",");
+    return formateArr.join(',');
   }
 }

@@ -5,8 +5,8 @@
 
 // 暴力破解法
 function longestCommonPrefix(strs: string[]): string {
-  if (strs.length === 0) return "";
-  let result = "";
+  if (strs.length === 0) return '';
+  let result = '';
   const [first, ...rest] = strs;
   for (let i = 0; i < first.length; i++) {
     const t = first[i];
@@ -28,11 +28,11 @@ function longestCommonPrefix(strs: string[]): string {
  * 空间O(1)
  */
 function longestCommonPrefix2(strs: string[]): string {
-  if (strs.length === 0) return "";
+  if (strs.length === 0) return '';
   strs = strs.sort();
-  let min = strs[0],
-    max = strs[strs.length - 1],
-    result = "";
+  const min = strs[0];
+  const max = strs[strs.length - 1];
+  let result = '';
   for (let i = 0; i < min.length; i++) {
     if (max.startsWith(result + min[i])) {
       result += min[i];

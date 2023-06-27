@@ -1,4 +1,4 @@
-import { ListNode } from "./LinkedList";
+import { type ListNode } from './LinkedList';
 
 const l1 = [1, 2, 4];
 const l2 = [1, 3, 4];

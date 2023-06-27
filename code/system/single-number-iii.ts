@@ -34,7 +34,7 @@ function singleNumber(nums: number[]): number[] {
   // 根据Lowbit求出sum中的最后一个1的位置
   const lowbit = sum & -sum; // 也可以使用 (sum & sum - 1)^sum
 
-  let result = [0, 0];
+  const result = [0, 0];
   nums.forEach((n) => {
     if (n & lowbit) {
       result[0] = result[0] ^ n;
