@@ -1,5 +1,12 @@
 {
     "cSpell.words": [
-        "Deque"
-    ]
+      "Deque",
+      "nlogn"
+    ],
+
+      "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+      },
+      "eslint.validate": ["javascript", "typescript"]
+
 }
