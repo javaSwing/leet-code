@@ -11,7 +11,7 @@
  * 如果步骤2返回的值 < right, 则递归执行quick(index, right)
  * 递归结束的条件为arr的length为1时
  */
-function quickSort(arr: number[]) {
+export function quickSort(arr: number[]) {
   return quick(arr, 0, arr.length - 1);
 }
 
@@ -69,9 +69,3 @@ function swap(arr: number[], l: number, r: number) {
   arr[l] = arr[r];
   arr[r] = t;
 }
-
-const testArr = [8, 6, 5, 1, 88, 30, 2, 19];
-
-quickSort(testArr);
-
-console.log('after testArr: ', testArr);
