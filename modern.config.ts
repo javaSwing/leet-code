@@ -37,7 +37,12 @@ function getSidebarConfig(lang: 'zh' | 'en') {
         collapsed: false,
         collapsible: false,
         text: getText('书本', 'book'),
-        items: [getLink('/guide/book/linkedList'), getLink('/guide/book/sortAndSearch')],
+        items: [
+          getLink('/guide/book/linkedList'),
+          getLink('/guide/book/recursive'),
+          getLink('/guide/book/heap'),
+          getLink('/guide/book/sortAndSearch'),
+        ],
       },
       {
         text: getText('二进制', 'system'),
