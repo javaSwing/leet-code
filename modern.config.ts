@@ -26,24 +26,26 @@ function getSidebarConfig(lang: 'zh' | 'en') {
   // 注: 侧边栏配置可以嵌套，子菜单字段为 items
   // Note: The sidebar configuration can be nested, and the sub-menu field is items
   return {
-    '/': [
+    [getLink('/guide')]: [
       {
-        text: getText('快速上手', 'Quick Start'),
-        link: getLink('/guide/getting-started'),
-        items: [
-          {
-            text: getText('安装', 'Install'),
-            link: getLink('/guide/install'),
-          },
-        ],
+        collapsed: false,
+        collapsible: false,
+        text: getText('开始', 'Getting Started'),
+        items: [getLink('/guide/introduction')],
       },
       {
-        text: getText('基础', 'Basic'),
-        link: getLink('/guide/basic'),
+        collapsed: false,
+        collapsible: false,
+        text: getText('书本', 'book'),
+        items: [getLink('/guide/book/linkedList'), getLink('/guide/book/sortAndSearch')],
       },
       {
-        text: getText('进阶', 'Advanced'),
-        link: getLink('/guide/advanced'),
+        text: getText('二进制', 'system'),
+        link: getLink('/guide/system'),
+      },
+      {
+        text: getText('技巧', 'skill'),
+        link: getLink('/guide/other'),
       },
     ],
   };
@@ -52,7 +54,7 @@ function getSidebarConfig(lang: 'zh' | 'en') {
 export default defineConfig({
   doc: {
     root: path.join(__dirname, 'docs'),
-    title: 'Leet Code TS Code',
+    title: '数据结构与算法学习笔记',
     description: 'JavaScript数据结构与算法及对应LeetCode题代码',
     // 默认语言
     // Default language
@@ -65,17 +67,18 @@ export default defineConfig({
       },
       // 不同语言的配置
       // Configuration for different languages
-      // locales: [
-      //   {
-      //     lang: 'zh',
-      //     title: '一个很棒的项目',
-      //     description: '一个很棒的项目描述',
-      //     nav: getNavConfig('zh'),
-      //     // sidebar: getSidebarConfig('zh'),
-      //     // 语言切换按钮的文案
-      //     // Language switch button text
-      //     label: '简体中文',
-      //   },
+      locales: [
+        {
+          lang: 'zh',
+          title: '数据结构与算法学习笔记',
+          description: 'JavaScript数据结构与算法及对应LeetCode题代码',
+          // nav: getNavConfig('zh'),
+          sidebar: getSidebarConfig('zh'),
+          // 语言切换按钮的文案
+          // Language switch button text
+          label: '简体中文',
+        },
+      ],
       //   {
       //     lang: 'en',
       //     title: 'A awesome project',

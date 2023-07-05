@@ -39,7 +39,7 @@ js中的二进制，主要使用`Number.toString(radix)`，其中的`radix`表�
 
 负数的反码变成了正值，这样就能通过反码把两个负数的运算转换为加法。从而简化问题。引用网上的例子如下（-1 + -2）：
 
-![反码](./img/rever-1.png)
+![反码](/system/img/rever-1.png)
 
 取负数的反码之后进行运算
 
@@ -99,7 +99,7 @@ OK，解决了-0和+0的问题。所有运算都可以转换成为补码进行�
 ```shell
     101
     001
-=   101 
+=   101
 console.log((0b101 | 0b001).toString(2)); # 101
 ```
 
@@ -177,7 +177,7 @@ console.log((0b101 | 0b001).toString(2)); # 101
   - n &(n ^ (n - 1))
 
 - 使用位运算来判断一个数字是奇数还是偶数，注意是 `==`并不是严格等于。
-  
+
 > `i & 1 == 1` 为奇数
 >
 > `i & 1 == 0` 为偶数
@@ -186,13 +186,13 @@ console.log((0b101 | 0b001).toString(2)); # 101
 
 ## 参考
 
-1. <https://www.cnblogs.com/zhangziqiu/archive/2011/03/30/computercode.html>
-2. <http://graphics.stanford.edu/~seander/bithacks.html#OperationCounting>
-3. <https://www.51cto.com/article/663685.html>
-4. <https://xiaochen1024.com/courseware/60b4f11ab1aa91002eb53b18/6196420ac1553b002e57bf19>
-5. <https://developer.aliyun.com/article/841237>
-6. <https://yanhaijing.com/javascript/2016/07/20/binary-in-js/>
-7. <https://segmentfault.com/a/1190000038208382>
-8. <https://www.cnblogs.com/fusiwei/p/11752540.html>
-9. <https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators>
-10. <https://blog.michealwayne.cn/2019/10/29/notes/js%E4%B8%AD%E4%BD%8D%E8%BF%90%E7%AE%97%E7%9A%84%E9%AA%9A%E6%93%8D%E4%BD%9C/>
+1. https://www.cnblogs.com/zhangziqiu/archive/2011/03/30/computercode.html
+2. http://graphics.stanford.edu/~seander/bithacks.html#OperationCounting
+3. https://www.51cto.com/article/663685.html
+4. https://xiaochen1024.com/courseware/60b4f11ab1aa91002eb53b18/6196420ac1553b002e57bf19
+5. https://developer.aliyun.com/article/841237
+6. https://yanhaijing.com/javascript/2016/07/20/binary-in-js/
+7. https://segmentfault.com/a/1190000038208382
+8. https://www.cnblogs.com/fusiwei/p/11752540.html
+9. https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators
+10. https://blog.michealwayne.cn/2019/10/29/notes/js%E4%B8%AD%E4%BD%8D%E8%BF%90%E7%AE%97%E7%9A%84%E9%AA%9A%E6%93%8D%E4%BD%9C/
