@@ -39,27 +39,27 @@ js中的二进制，主要使用`Number.toString(radix)`，其中的`radix`表�
 
 负数的反码变成了正值，这样就能通过反码把两个负数的运算转换为加法。从而简化问题。引用网上的例子如下（-1 + -2）：
 
-![反码](/system/img/rever-1.png)
+![](/rever-1.png)
 
 取负数的反码之后进行运算
 
-![反码](./img/rever-2.png)
+![](/rever-2.png)
 
 ## 补码
 
 思考一个问题，负数与负数的运算可以解决了，正数与负数的运算也可以正常运算了。但是还有一个问题：在原码中有+0， -0这两个特殊的值，可以在反码中正常运算吗？
 
-![补码](./img/bu-1.png)
+![](/bu-1.png)
 
 从上面的运算结果来看，反码解决不了这个问题。于是就引出来的补码。
 先来看下补码的定义：**符号位保持不变，正数的原码与补码一样，负数的补码，其余按位取反，最后末尾+1（即反码末尾+1）**。让我们来看下补码后的所有数：
 
-![补码](./img/bu-2.png)
+![](/bu-2.png)
 
 OK，解决了-0和+0的问题。所有运算都可以转换成为补码进行运算了.
 最后总结下补码的表示区间。
 
-![补码](./img/sum.png)
+![](/sum.png)
 
 总结一下：
 
@@ -73,7 +73,7 @@ OK，解决了-0和+0的问题。所有运算都可以转换成为补码进行�
 
 - 十进制转换为k进制。主要通过，除以 k ，右侧为余数，最终的结果为：从下到上，高位到低位进行转换。如下图：
 
-![进制转换](./img/parse.jpeg?version%3D1679932120167)
+![](/parse.jpeg)
 
 - 二进制转换为十进制
 
@@ -195,4 +195,4 @@ console.log((0b101 | 0b001).toString(2)); # 101
 7. https://segmentfault.com/a/1190000038208382
 8. https://www.cnblogs.com/fusiwei/p/11752540.html
 9. https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators
-10. https://blog.michealwayne.cn/2019/10/29/notes/js%E4%B8%AD%E4%BD%8D%E8%BF%90%E7%AE%97%E7%9A%84%E9%AA%9A%E6%93%8D%E4%BD%9C/
+10. [js中位运算的骚操作](https://blog.michealwayne.cn/2019/10/29/notes/js%E4%B8%AD%E4%BD%8D%E8%BF%90%E7%AE%97%E7%9A%84%E9%AA%9A%E6%93%8D%E4%BD%9C/)

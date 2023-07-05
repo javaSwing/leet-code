@@ -1,4 +1,4 @@
-import { defineConfig } from '@modern-js/doc-tools';
+import { defineConfig, docTools } from '@modern-js/doc-tools';
 import path from 'path';
 
 function getI18nHelper(lang: 'zh' | 'en') {
@@ -54,8 +54,6 @@ function getSidebarConfig(lang: 'zh' | 'en') {
 export default defineConfig({
   doc: {
     root: path.join(__dirname, 'docs'),
-    title: '数据结构与算法学习笔记',
-    description: 'JavaScript数据结构与算法及对应LeetCode题代码',
     // 默认语言
     // Default language
     lang: 'zh',
@@ -90,5 +88,5 @@ export default defineConfig({
       // ],
     },
   },
-  plugins: ['@modern-js/doc-tools'],
+  plugins: [docTools()],
 });
