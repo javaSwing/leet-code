@@ -41,7 +41,8 @@ function getSidebarConfig(lang: 'zh' | 'en') {
           getLink('/guide/book/linkedList'),
           getLink('/guide/book/recursive'),
           getLink('/guide/book/heap'),
-          getLink('/guide/book/sortAndSearch'),
+          getLink('/guide/book/chap13'),
+          getLink('/guide/book/chap14'),
         ],
       },
       {
