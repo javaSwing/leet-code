@@ -38,7 +38,7 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages # The branch the action should deploy to.
-          FOLDER: dist # The folder the action should deploy.
+          FOLDER: doc_build # The folder the action should deploy.
           CLEAN: true
 #       - name: Complete ✅
 #         uses: fifsky/dingtalk-action@master
