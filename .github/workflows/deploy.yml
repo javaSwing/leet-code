@@ -37,8 +37,7 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4.4.1
         with:
           branch: gh-pages
-          folder: doc_build
-          target-folder: builder
+          folder: doc_build         
           clean: true
 #       - name: Complete ✅
 #         uses: fifsky/dingtalk-action@master
