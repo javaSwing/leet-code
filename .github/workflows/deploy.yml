@@ -37,7 +37,8 @@ jobs:
       - run: yarn build
 
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4.4.1
+        uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/main'
         with:
-          branch: gh-pages
-          folder: doc_build
+          github_token: ${{ secrets.ACTIONS_TOKEN }}
+          publish_dir: ./doc_build
