@@ -1,6 +1,8 @@
 import { defineConfig, docTools } from '@modern-js/doc-tools';
 import path from 'path';
 
+const isProd = () => process.env.NODE_ENV === 'production';
+
 function getI18nHelper(lang: 'zh' | 'en') {
   const cn = lang === 'zh';
   // 默认语言为中文，如果是英文，需要加上 /en 前缀
@@ -59,6 +61,8 @@ function getSidebarConfig(lang: 'zh' | 'en') {
 
 export default defineConfig({
   doc: {
+    // https://modernjs.dev/doc-tools/zh/api/config/config-basic.html
+    base: isProd() ? '/leet-code/' : '/',
     root: path.join(__dirname, 'docs'),
     // 默认语言
     // Default language
@@ -83,15 +87,6 @@ export default defineConfig({
           label: '简体中文',
         },
       ],
-      //   {
-      //     lang: 'en',
-      //     title: 'A awesome project',
-      //     description: 'A awesome project description',
-      //     nav: getNavConfig('en'),
-      //     // sidebar: getSidebarConfig('en'),
-      //     label: 'English',
-      //   },
-      // ],
     },
   },
   plugins: [docTools()],
