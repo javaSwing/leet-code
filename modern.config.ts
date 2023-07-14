@@ -64,6 +64,18 @@ export default defineConfig({
     // https://modernjs.dev/doc-tools/zh/api/config/config-basic.html
     base: isProd() ? '/leet-code/' : '/',
     root: path.join(__dirname, 'docs'),
+    head: [
+      `<script>
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?08a989582e08d8cc546189a487b20fc9";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+      `
+    ],
     // 默认语言
     // Default language
     lang: 'zh',
