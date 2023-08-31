@@ -45,6 +45,7 @@ function getSidebarConfig(lang: 'zh' | 'en') {
           getLink('/guide/book/heap'),
           getLink('/guide/book/chap13'),
           getLink('/guide/book/chap14'),
+          getLink('/guide/book/dynamicProgramming')
         ],
       },
       {
