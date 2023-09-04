@@ -7,7 +7,7 @@
  */
 
 export function matrixChainOrder(p: number[]) {
-  let n = p.length;
+  const n = p.length;
   const m: number[][] = [];
 
   for (let i = 1; i <= n; i++) {
@@ -19,7 +19,7 @@ export function matrixChainOrder(p: number[]) {
     for (let i = 1; i <= n - l + 1; i++) {
       const j = i + l - 1;
       m[i][j] = Number.MAX_SAFE_INTEGER;
-      console.table(m)
+      console.table(m);
       for (let k = i; k <= j - 1; k++) {
         const q = m[i][k] + m[k + 1][j] + p[i - 1] * p[k] * p[j];
         if (q < m[i][j]) m[i][j] = q;
