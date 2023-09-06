@@ -34,3 +34,56 @@ export const lengthOfLIS = (nums: number[]) => {
   }
   return Math.max(...dp);
 };
+
+/**
+ * 二分法查找实现最长递增子序列
+ * @param num
+ * @returns
+ *
+ * @link https://labuladong.github.io/algo/di-er-zhan-a01c6/dong-tai-g-a223e/dong-tai-g-6ea57/#%E4%BA%8C%E3%80%81%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E8%A7%A3%E6%B3%95
+ * @link https://leetcode.cn/problems/longest-increasing-subsequence/solutions/1033432/dong-tai-gui-hua-he-er-fen-cha-zhao-lian-x7dh/
+ * O(nlogN) 线性对阶
+ *
+ * ### 说明
+ * 这一点，自己真的是想不到的。看题解也是看了很长时间，有点费脑子，需要努力。在这里不描述怎么想，很难想到用纸牌的思想来描述这个事。说下几个要点：
+ *
+ * - 这里的`top`代表的是每个是堆的堆顶，也就是堆的最小值
+ * - 在循环数组里的逻辑如下：
+ *    - 在目前已知的堆里，查找堆顶值与当前牌的值的对比，逻辑就是二分查找
+ *    - 如果最终left的值与堆的值相等，则代表没有合适的堆，则新创建（注意left = mid + 1）
+ *    - 之后把当前的纸牌放到对应的left的堆上（while结束的条件是left < right,说明left至少与right相等或者大于）
+ * - 这样就创建了合适的堆
+ */
+
+export const lengthOfLIS2 = (nums: number[]) => {
+  // 每堆的堆顶
+  const top: number[] = [];
+  // 牌堆的数量
+  let pipes = 0;
+
+  for (let i = 0; i < nums.length; i++) {
+    // 初始化二分法的最左和最右边
+    let left = 0;
+    let right = pipes;
+    const v = nums[i];
+
+    while (left < right) {
+      // 取中间值
+      let mid = Math.floor((left + right) / 2);
+
+      if (top[mid] > v) {
+        right = mid;
+      } else if (top[mid] < v) {
+        left = mid + 1;
+      } else {
+        right = mid;
+      }
+    }
+
+    // 如果最左边和当前堆的长度相等，即没有地方放。则新创建一个堆
+    if (left === pipes) pipes++;
+    // 把当前的这张牌放到对应堆的堆顶
+    top[left] = v;
+  }
+  return pipes;
+};
