@@ -22,14 +22,14 @@ export function twoSum(nums: number[], target: number): number[] {
 }
 
 export function twoSum2(nums: number[], target: number): number[] {
-  const map = {}
+  const map = {};
   for (let i = 0; i < nums.length; i++) {
     const v = nums[i];
     const other = target - v;
     if (typeof map[other] !== 'undefined') {
-      return [map[other], i]
+      return [map[other], i];
     }
     map[v] = i;
   }
-  return []
+  return [];
 }
