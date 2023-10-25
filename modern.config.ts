@@ -40,11 +40,13 @@ function getSidebarConfig(lang: 'zh' | 'en') {
         collapsible: false,
         text: getText('书本', 'book'),
         items: [
+          getLink('/guide/book/chap3'),
           getLink('/guide/book/linkedList'),
           getLink('/guide/book/recursive'),
           getLink('/guide/book/heap'),
           getLink('/guide/book/chap13'),
           getLink('/guide/book/chap14'),
+          getLink('/guide/book/dynamicProgramming'),
         ],
       },
       {
@@ -74,7 +76,7 @@ export default defineConfig({
           s.parentNode.insertBefore(hm, s);
         })();
         </script>
-      `
+      `,
     ],
     // 默认语言
     // Default language
