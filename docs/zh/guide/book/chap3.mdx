@@ -1,0 +1,185 @@
+# 第 3 章 数组
+
+数组几乎是所有编程语言都原生支持的数据类型，因为数组是最**简单**的内存数据结构。同时他是链表、图等复杂数据结构的基石。
+
+## 数据的创建与初始化
+
+### 创建
+
+这一块没有什么好说的，js 创建数组只有以下三种方式：
+
+```javascript
+// 直接声明一个数组
+const arr1 = [];
+
+// 使用new 关键字创建一个指定长度的数组
+const arrObj = new Array(7);
+
+// 直接使用数组元素传递给构造器，创建数组
+const arrC = [1, 3, 5];
+```
+
+### 迭代与访问
+
+直接使用`arr[index]`数组加索引的方式进行访问即可。
+
+迭代方式主要有以下几种：
+
+1. 传统的`for`循环迭代
+
+```javascript
+// for 循环
+for (let index = 0; index < arrC.length; index++) {
+  const element = arrC[index];
+
+  console.log('for 循环： element ==>', element);
+}
+```
+
+2. `for/of`迭代
+
+```javascript
+// 缺点无法获取当前的索引
+for (const v of arrC) {
+  console.log('v', v);
+}
+```
+
+3. `forEach`迭代
+
+```javascript
+arrC.forEach((c) => {
+  console.log('forEach c', c);
+});
+```
+
+缺点：尽量不要在 forEach 中使用`yield` `await`等，返回的结果是不可控的。原因查看[这里](https://gist.github.com/joeytwiddle/37d2085425c049629b80956d3c618971)
+
+4. `for/in`
+
+```javascript
+const arrC = [1, 3, 5];
+arrC.test = 'bb';
+for (const key in arrC) {
+  console.log('key', key);
+}
+// 输出结果
+// key 0
+// key 1
+// key 2
+// key test
+```
+
+要注意返回的 key 的是数组的索引，且返回的对象原型上的可迭代属性，所以说很不安全。要解决该问题使用`hasOwnProperty`方法即可：
+
+```javascript
+if (Object.prototype.hasOwnProperty.call(object, key)) {
+  const element = object[key];
+}
+```
+
+引用下别人的性能对比结果：for > forEach > for…of > map > for…in。图如下：
+
+![](https://lilywei739.github.io/img/20161222/201222-special-1.jpg)
+
+## 数据增、删、改、查
+
+### 添加元素
+
+添加元素这一块，在 js 原生提供的方法如下：
+
+1. `push`在数组的最后面添加元素
+2. `unshift`在数组的开头添加元素
+
+## 删除元素
+
+1. 从数组的末尾删除元素 `pop`
+2. 从数组的开头删除元素 `shift`
+3. 删除任意位置的元素使用`splice`
+
+> splice() 方法通过移除或者替换已存在的元素和/或添加新元素就地改变一个数组的内容。
+> 要创建一个删除和/或替换部分内容而不改变原数组的新数组，请使用 toSpliced()。要访问数组的一部分而不修改它，参见 slice()。
+
+## 二维与多维数组
+
+二维与多维数组是图、矩阵在 js 中的表达方式。添加元素与迭代也主要靠for循环
+
+```typescript
+// 二维数组
+const matrixArr: number[][] = [[]];
+
+for (let index = 0; index < 10; index++) {
+  matrixArr[index] = [];
+  for (let j = 0; j < 5; j++) {
+    matrixArr[index][j] = j;
+  }
+}
+```
+
+```typescript
+// 多维数组
+
+const matrix3x3x3: number[][][] = [];
+for (let index = 0; index < 3; index++) {
+  matrix3x3x3[index] = [];
+  for (let j = 0; j < 3; j++) {
+    matrix3x3x3[index][j] = [];
+    for (let m = 0; m < 3; m++) {
+      matrix3x3x3[index][j][m] = index + j + m;
+    }
+  }
+}
+
+console.table(matrix3x3x3);
+
+```
+
+## 数组方法一览
+
+| 方法   | 描述 |     版本 |   备注 |
+| :----- | :-- | -------: |-------: |
+| join |  数组中的元素按传入字符串拼接返回string  | | |
+| indexOf |查找数组中第一个与参数相等的元素索引，无返回 -1  | | |
+| lastIndexOf |查找数组中最后一个个与参数相等的元素索引，无返回 -1  | | |
+| splice | 操作数组的方法，可以用于删除也可以添加数组元素  | | |
+| slice | 按照传入的start, end进行截取数组，不传入end默认为数组的最后一位 | | |
+| push |  向数组末尾添加一个元素  |  | |
+| concat |  连接两个或者更多数组，并返回结果  |  | |
+| filter |  按callback进行过滤，返回的元素中callback结果为true，  | | |
+| find |  按照指定的逻辑，查找符合条件的元素  | | ES6 |
+| findIndex |  按照指定的逻辑，查找符合条件的元素的索引，无返回-1  | | ES6 |
+| map |  按callback进行处理数组中的每一个元素，返回由处理过的结果组成的新数组  | | |
+| every |  数组中的每个元素都符合特定的条件，整体结果才返回true  | | |
+| some |  数组中的只要有一个元素符合特定的条件，整体结果就返回true  | | |
+| reduce |  一个遍历数组的方法，可以用于合并，以及创建新的结果对象  | | |
+| forEach |  一个遍历数组的方法  | | |
+| sort |  数组排序方法 | | |
+| reverse |  数组反转方法 | | |
+| includes |  检测数组中是否存在某个元素，存在为true否则为false | | ES6|
+| fill |  以传入的参数填充数组中所有元素 | | ES6|
+| from |  根据已有的数组创建一个新的数组 | | ES6 |
+| of |  根据会传入的参数创建一个新的数组 | | ES6 |
+| copyWithin| 复制数组中一系列元素到同一数组指定的起始位置 | | ES6|
+
+## 类型数组
+
+主要用于 WebGLAPI、进行位操作、处理文件和图像时
+
+| 方法   | 描述 |
+| :----- | :-- |
+| Int8Array| 8 位二进制补码整数|
+| Uint8Array| 8 位无符号整数|
+| Uint8ClampedArray| 8 位无符号整数|
+| Int16Array| 16 位二进制补码整数|
+| Uint16Array|16 位无符号整数|
+| Int32Array| 32 位二进制补码整数|
+|Uint32Array |32 位无符号整数|
+|Float32Array |32 位 IEEE 浮点数|
+|Float64Array 64 位 IEEE 浮点数|
+
+
+
+## 参考
+
+1. https://lilywei739.github.io/2016/12/22/Array_loop_1.html
+2. https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/splice
