@@ -41,6 +41,7 @@ function getSidebarConfig(lang: 'zh' | 'en') {
         text: getText('书本', 'book'),
         items: [
           getLink('/guide/book/chap3'),
+          getLink('/guide/book/chap4'),
           getLink('/guide/book/linkedList'),
           getLink('/guide/book/recursive'),
           getLink('/guide/book/heap'),
