@@ -1,3 +1,118 @@
 # 第4章 栈
 
 栈（stack），是一种后进先出的数据结构（LIFO）。应用的很普遍，比如程序出错，我们经常要看其对应的堆栈信息。在算法中，由于JS没有对应的结构实现，我们常常使用数组来模拟该结构的特性。
+
+下面是使用数据实现的栈结构的代码:
+
+- 数组实现版本
+
+```Typescript
+/**
+ * Stack 数据结构（数组实现版本）
+ * 后进先出（LIFO）
+ */
+export default class StackArray<T> {
+  items: T[];
+
+  constructor() {
+    this.items = [];
+  }
+
+  push(element: T) {
+    this.items.push(element);
+  }
+
+  /**
+   * return ths stack first element
+   */
+  peek() {
+    if (this.isEmpty()) return null;
+    return this.items[this.items.length - 1];
+  }
+
+  isEmpty() {
+    return this.items.length === 0;
+  }
+
+  pop() {
+    const v = this.items.pop();
+    return v ? v : null;
+  }
+
+  toString(callBack?: (v: T) => string) {
+    const formateArr = callBack ? this.items.map(callBack) : this.items;
+    return formateArr.reverse().join(',');
+  }
+
+  toArray() {
+    return this.items.reverse();
+  }
+}
+```
+
+数组版本的缺点：
+
+1. 大部分的方法复杂度是O(n)
+
+- Object实现版本
+
+```Typescript
+export default class Stack<T> {
+  items: Record<number, T>;
+  count: number;
+
+  constructor() {
+    this.items = {};
+    this.count = 0;
+  }
+
+  push(element: T) {
+    this.items[this.count] = element;
+    this.count++;
+  }
+
+  peek() {
+    if (this.isEmpty()) return null;
+    return this.items[this.count - 1];
+  }
+
+  pop() {
+    if (this.isEmpty()) return null;
+    this.count--;
+    const target = this.items[this.count];
+    delete this.items[this.count];
+    return target;
+  }
+
+  isEmpty() {
+    return this.count === 0;
+  }
+
+  toString(callBack?: (v: T) => T) {
+    const formateArr:T[] = [];
+    for (let index = 0; index < this.count; index++) {
+      const element = this.items[index];
+      const t = callBack ? callBack(element) : element;
+      formateArr.push(t);
+    }
+    return formateArr.reverse().join(',');
+  }
+
+  toArray() {
+    if (this.isEmpty()) return null;
+
+    const formateArr: T[] = [];
+    for (let index = this.count - 1; index >= 0; index--) {
+      const element = this.items[index];
+      formateArr.push(element);
+    }
+
+    return formateArr;
+  }
+}
+```
+
+## 题库列表
+1. https://darktiantian.github.io/LeetCode%E7%AE%97%E6%B3%95%E9%A2%98%E6%95%B4%E7%90%86%EF%BC%88%E6%A0%88%E7%AF%87%EF%BC%89Stack/
+2. https://www.zybuluo.com/Yano/note/255249
+3. https://leetcode.cn/tag/stack/problemset/
