@@ -1,3 +1,7 @@
+
+// 使用ES6中的Symbol来进行模拟Stack的私有属性，保证属性K的唯一性
+// 可以使用 WeakMap 来完全模拟 Stack 后进先出的特性
+const _items = Symbol("stackItem");
 export default class Stack<T> {
   items: Record<number, T>;
   count: number;
@@ -29,11 +33,12 @@ export default class Stack<T> {
     return this.count === 0;
   }
 
-  toString(callBack?: (v: T) => string) {
-    const formateArr = [];
+  toString(callBack?: (v: T) => T) {
+    const formateArr:T[] = [];
     for (let index = 0; index < this.count; index++) {
       const element = this.items[index];
-      formateArr.push(callBack ? callBack(element) : element);
+      const t = callBack ? callBack(element) : element;
+      formateArr.push(t);
     }
     return formateArr.reverse().join(',');
   }
