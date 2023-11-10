@@ -1,0 +1,276 @@
+# 队列与双端队列
+
+## 队列
+
+> 队列是种线性数据结构，是一种只允许在表的一端进行插入操作，而在表的另一端进行删除操作的线性表。
+
+队列这个词，在开发中碰到的场景。比如说你要做一个事件，需要一个队列来进行维护，让任务分先后进行。**谁先来先处理谁**即先来先处理。也叫“先进先出（FIFO = First In First Out）”书本中也举了一个例子，打印机任务排队处理的场景。
+
+todo 补充一个队列的结构图
+
+下面是队列的结构签名:
+
+``` typescript type.d.ts
+
+interface QueueType<T = any> {
+  /**
+   * 向队列添加一个或者多个新的项
+   * @param element
+   */
+  enqueue: (element: T) => void;
+
+  /**
+   * 移除队列的第一项
+   */
+  dequeue: () => void;
+
+  /**
+   * 返回队列中的第一个元素
+   */
+  peek: () => T;
+
+  /**
+   * 检测队列是否为空
+   */
+  isEmpty: () => boolean;
+
+  /**
+   * 返回当前队列的长度
+   */
+  size: () => number;
+}
+
+```
+
+### 队列的实现
+
+先来说下队列的存储结构，主要分为两种：`顺序存储`与`链式存储`。对于js来说，前者使用**数组**进行实现，而后者需要借助于`链表`等数据结构实现。js本身并没有提供链式存储数据结构的能力。
+使用js中的对象实现的队列数据结构
+
+``` typescript queue.ts
+export default class Queue<T> implements QueueType<T> {
+  items: Record<number, T>;
+  /** 控制队列的大小 */
+  count: number;
+  /** 队列第一个元素的位置 */
+  lowestCount: number;
+
+  constructor() {
+    this.items = {};
+    this.count = 0;
+    this.lowestCount = 0;
+  }
+
+  clear() {
+    this.items = {};
+    this.count = 0;
+    this.lowestCount = 0;
+  }
+
+  enqueue(element: T) {
+    this.items[this.count] = element;
+    this.count++;
+  }
+
+  dequeue() {
+    if (this.isEmpty()) return;
+    const front = this.items[this.lowestCount];
+    delete this.items[this.lowestCount];
+    this.lowestCount++;
+    return front;
+  }
+  peek() {
+    if (this.isEmpty()) return;
+    const front = this.items[this.lowestCount];
+    return front;
+  }
+
+  isEmpty() {
+    return this.count - this.lowestCount === 0;
+  }
+
+  size() {
+    return this.count - this.lowestCount;
+  }
+
+  toString(callback?: (e: T) => string) {
+    let result = '';
+    if (!this.isEmpty()) {
+      for (let i = this.lowestCount; i < this.count; i++) {
+        const e = this.items[i];
+        if (typeof e !== undefined) {
+          result = `${result ? result + ',' : ''}${callback ? callback(e) : e}`;
+        }
+      }
+    }
+
+    return result;
+  }
+}
+
+```
+
+## 双端队列
+
+双端队列(deque称double-ended queue)，是一种允许我们同时在前端和后端添加和移除元素的特殊队列。在计算机应用的场景如下：你需要一个结构来记录用户的操作。用户可以进执行某一个操作之后，进行撤回（从队列后面移除）；当然当整个
+记录载体超过一定数量的操作之后，会清空之前很久操作记录（从队列最前面移除）。可以把它理解为`队列`和`栈`的结合体。
+
+数据结构签名
+``` typescript deque.d.ts
+interface DequeType<T> {
+
+  /**
+   * 在双端队列的前面添加新元素
+   * @param element
+   * @returns
+   */
+  addFront:(element: T) => void;
+
+  /**
+   * 在双端队列的队尾添加新元素
+   * @param e
+   * @returns
+   */
+  addBack:(e: T) => void;
+
+  /**
+   * 在双端队列的前端移除第一个元素
+   * @returns
+   */
+  removeFront: () => void;
+
+  /**
+   * 在双端队列的后端添加第一个元素
+   * @returns
+   */
+  removeBack: () => void;
+
+  /**
+   * 返回队列前端中的第一个元素
+   * @returns
+   */
+  peekFront: () => T;
+
+  /**
+   * 返回队列队尾的第一个元素
+   * @returns
+   */
+  peekBack: () => T;
+
+  /**
+   * 检测队列是否为空
+   */
+  isEmpty: () => boolean;
+
+  /**
+   * 返回当前队列的长度
+   */
+  size: () => number;
+
+  /**
+   * 清空队列
+   * @returns
+   */
+  clear: () => void;
+
+  /**
+   * 打印方法
+   * @param callBack
+   * @returns
+   */
+  toString: (callBack?: (T) => string) => void;
+}
+```
+
+具体代码实现
+
+```typescript Deque.ts
+class Deque<T> implements DequeType<T> {
+  items: Record<number, T>;
+  /** 控制队列的大小 */
+  count: number;
+  /** 队列第一个元素的位置 */
+  lowestCount: number;
+
+  constructor() {
+    this.items = {};
+    this.count = 0;
+    this.lowestCount = 0;
+  }
+
+  addFront(element: T) {
+    if (this.isEmpty()) {
+      this.items[this.lowestCount] = element;
+      this.count++;
+    } else if (this.lowestCount > 0) {
+      this.lowestCount--;
+      this.items[this.lowestCount] = element;
+    } else {
+      for (let index = this.count; index > 0; index--) {
+        this.items[index] = this.items[index - 1];
+      }
+      this.count++;
+      this.lowestCount = 0;
+      this.items[this.lowestCount] = element;
+    }
+  }
+
+  addBack(e: T) {
+    this.items[this.count] = e;
+    this.count++;
+  }
+  removeFront() {
+    if(this.isEmpty()) return;
+    delete this.items[this.lowestCount];
+    this.lowestCount++;
+  }
+  removeBack() {
+    if(this.isEmpty()) return;
+    delete this.items[this.count];
+    this.count--;
+  }
+  peekFront() {
+    if(this.isEmpty()) return;
+    return this.items[this.lowestCount];
+
+  }
+  peekBack() {
+    if(this.isEmpty()) return;
+    return this.items[this.count];
+  }
+
+  isEmpty() {
+    return this.count - this.lowestCount === 0;
+  }
+
+  size() {
+    return this.count - this.lowestCount;
+  }
+  clear() {
+    this.items = {};
+    this.count = 0;
+    this.lowestCount = 0;
+  }
+  toString(callback?: (e: T) => string) {
+    let result = '';
+    if (!this.isEmpty()) {
+      for (let i = this.lowestCount; i < this.count; i++) {
+        const e = this.items[i];
+        if (typeof e !== undefined) {
+          result = `${result ? result + ',' : ''}${callback ? callback(e) : e}`;
+        }
+      }
+    }
+
+    return result;
+  }
+}
+
+```
+
+
+
+
+## 参考
+
+1. [队列基础知识](https://algo.itcharge.cn/04.Queue/01.Queue-Basic/01.Queue-Basic/)

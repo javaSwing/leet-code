@@ -1,5 +1,7 @@
 /**
  * 225. 用队列实现栈
+ *
+ * @link https://leetcode.cn/problems/implement-stack-using-queues/description/
  */
 class MyStack {
   private arr: number[];
@@ -11,11 +13,11 @@ class MyStack {
     this.arr.push(x);
   }
 
-  pop(): number {
+  pop(): number | undefined {
     return this.arr.pop();
   }
 
-  top(): number {
+  top(): number | undefined {
     if (this.empty()) return;
     return this.arr[this.arr.length - 1];
   }

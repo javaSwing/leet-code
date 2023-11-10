@@ -25,14 +25,14 @@ describe('Queue', () => {
     const stringifier = (value) => `${value.key}:${value.value}`;
 
     expect(queue.toString(stringifier)).toBe('key1:test1,key2:test2');
-    expect(queue.dequeue().value).toBe('test1');
-    expect(queue.dequeue().value).toBe('test2');
+    expect(queue.dequeue()?.value).toBe('test1');
+    expect(queue.dequeue()?.value).toBe('test2');
   });
 
   it('should peek data from queue', () => {
     const queue = new Queue();
 
-    expect(queue.peek()).toBeNull();
+    expect(queue.peek()).toBeUndefined();
 
     queue.enqueue(1);
     queue.enqueue(2);
@@ -59,7 +59,7 @@ describe('Queue', () => {
 
     expect(queue.dequeue()).toBe(1);
     expect(queue.dequeue()).toBe(2);
-    expect(queue.dequeue()).toBeNull();
+    expect(queue.dequeue()).toBeUndefined();
     expect(queue.isEmpty()).toBe(true);
   });
 });

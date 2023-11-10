@@ -1,8 +1,8 @@
 import Queue from '../Queue';
 
-function hotPotato(elementList: any[], num: number) {
-  const queue = new Queue();
-  const elimitatedList = [];
+function hotPotato<T>(elementList: T[], num: number) {
+  const queue = new Queue<T>();
+  const elimitatedList:T[] = [];
 
   for (let index = 0; index < elementList.length; index++) {
     const element = elementList[index];
@@ -11,9 +11,11 @@ function hotPotato(elementList: any[], num: number) {
 
   while (queue.size() > 0) {
     for (let index = 0; index < num; index++) {
-      queue.enqueue(queue.dequeue());
+      const r = queue.dequeue();
+      r && queue.enqueue(r);
     }
-    elimitatedList.push(queue.dequeue());
+    const rt = queue.dequeue();
+    rt && elimitatedList.push(rt);
   }
 
   return {
@@ -23,6 +25,6 @@ function hotPotato(elementList: any[], num: number) {
 }
 
 const names = ['John', 'Jack', 'Camila', 'Ingrid', 'Carl'];
-const result = hotPotato(names, 7);
+// const result = hotPotato<string>(names, 7);
 
 console.log(hotPotato(names, 3));
