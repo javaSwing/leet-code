@@ -1,16 +1,9 @@
 {
-    "cSpell.words": [
-      "Deque",
-      "nlogn"
-    ],
+  "cSpell.words": ["Deque", "nlogn"],
 
-      "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": true
-      },
-      "eslint.validate": [
-        "javascript",
-        "typescript"
-      ],
-      "typescript.tsdk": "node_modules/typescript/lib"
-
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  },
+  "eslint.validate": ["javascript", "typescript"],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
