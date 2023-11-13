@@ -4,8 +4,8 @@
  * @returns
  * @link https://leetcode.cn/problems/XltzEq/description/
  */
-function isPalindrome(s: string): boolean {
-  let lowerStr = s.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+function isPalindrome(str: string): boolean {
+  let lowerStr = str.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
   let result = true;
   while (lowerStr.length > 1 && result) {
     const start = lowerStr.charAt(0);

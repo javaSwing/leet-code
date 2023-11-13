@@ -1,8 +1,8 @@
 export class LinkedListNode<T> {
   value: T;
-  next: LinkedListNode<T> | null;
+  next: LinkedListNode<T> | undefined;
 
-  constructor(val: T, next = null) {
+  constructor(val: T, next = undefined) {
     this.value = val;
     this.next = next;
   }

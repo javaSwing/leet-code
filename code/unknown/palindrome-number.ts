@@ -17,7 +17,7 @@
  * 时间复杂度：O(log n)
  */
 
-function isPalindrome(x: number): boolean {
+function isPalindrome2(x: number): boolean {
   if (x < 0 || (x % 10 == 0 && x !== 0)) return false;
   let revertNum = 0;
   while (x > revertNum) {
@@ -28,4 +28,4 @@ function isPalindrome(x: number): boolean {
   // 偶数与奇数
   return x === revertNum || x === Math.floor(revertNum / 10);
 }
-console.log(isPalindrome(11));
+console.log(isPalindrome2(11));
