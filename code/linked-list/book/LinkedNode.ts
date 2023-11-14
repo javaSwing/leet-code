@@ -3,9 +3,9 @@
  */
 export class LinkedNode<T> {
   val: T;
-  next: null | LinkedNode<T>;
+  next: undefined | LinkedNode<T>;
   constructor(v: T) {
     this.val = v;
-    this.next = null;
+    this.next = undefined;
   }
 }

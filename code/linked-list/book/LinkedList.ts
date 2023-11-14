@@ -4,11 +4,11 @@ import { type LinkedListInterface } from './type';
 
 export default class LinkedList<T> implements LinkedListInterface<T> {
   count: number;
-  head: null | LinkedNode<T>;
+  head: undefined | LinkedNode<T>;
   eqFn: (a: T, b: T) => boolean;
   constructor(eq = defaultEquals) {
     this.count = 0;
-    this.head = null;
+    this.head = undefined;
     this.eqFn = eq;
   }
 
@@ -23,20 +23,40 @@ export default class LinkedList<T> implements LinkedListInterface<T> {
       }
       current.next = node;
     }
-
     this.count++;
   }
 
-  // @ts-ignore
   insert(element: T, position: number) {
-    // @ts-ignore
-    const node = new LinkedListNode(element);
-
-    this.count++;
+    if (position >= 0 && position <= this.count) {
+      const node = new LinkedNode(element);
+      if (position == 0) {
+        let c = this.head;
+        node.next = c;
+        this.head = node;
+      } else {
+        const pre = this.getElementAt(position - 1);
+        if (pre) {
+          const next = pre.next;
+          pre.next = node;
+          node.next = next;
+        }
+      }
+      this.count++;
+      return true;
+    }
     return false;
   }
-  // @ts-ignore
   getElementAt(index: number) {
+    if (index >= 0 && index < this.count) {
+      let current = this.head;
+      for (let i = 0; i < this.count; i++) {
+        if (i === index) {
+          break;
+        }
+        current = current?.next;
+      }
+      return current;
+    }
     return undefined;
   }
 
@@ -50,42 +70,45 @@ export default class LinkedList<T> implements LinkedListInterface<T> {
   }
 
   removeAt(index: number) {
-    if (index >= 0 && index < this.count) {
-      let prev = this.head;
-      let i = 0;
-      while (prev?.next != null) {
-        if (i === index) {
-          break;
-        }
-        prev = prev.next;
-        i++;
+    if (index === 0) {
+      if (typeof this.head !== 'undefined') {
+        let c = this.head;
+        this.head = this.head.next;
+        this.count--;
+        return c.val;
       }
-
-      const target = prev?.next;
-
-      if (prev && prev.next && target) {
-        prev.next = target.next;
+    } else {
+      const prev = this.getElementAt(index - 1);
+      let current = prev?.next;
+      if (prev) {
+        prev.next = current?.next;
+        this.count--;
+        return current?.val;
       }
-      this.count--;
-      return target?.val;
     }
-    return;
+    return undefined;
   }
+
   isEmpty() {
     return this.size() === 0;
   }
   size() {
     return this.count;
   }
+
   toString() {
-    const arr: T[] = [];
-    let c = this.head;
-    while (c?.next !== null) {
-      c?.val && arr.push(c.val);
-      // @ts-ignore
-      c = c?.next;
+    if (!this.head) {
+      return '';
+    }
+    let result = `${this.head?.val}`;
+    let current: LinkedNode<T> | undefined = this.head;
+    for (let i = 1; i < this.count; i++) {
+      current = current?.next;
+      if (current) {
+        result += `,${current.val}`;
+      }
     }
 
-    return arr.join(',');
+    return result;
   }
 }

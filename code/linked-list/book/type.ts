@@ -1,3 +1,5 @@
+import { LinkedNode } from "./LinkedNode";
+
 export interface LinkedListInterface<T> {
   /**
    * 添加一个节点
@@ -19,7 +21,7 @@ export interface LinkedListInterface<T> {
    * @param index
    * @returns
    */
-  getElementAt: (index: number) => T | undefined;
+  getElementAt: (index: number) => LinkedNode<T> | undefined;
 
   /**
    * 从链表中移除一个元素
