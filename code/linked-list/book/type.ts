@@ -1,4 +1,4 @@
-import { LinkedNode } from "./LinkedNode";
+import { type LinkedNode } from './LinkedNode';
 
 export interface LinkedListInterface<T> {
   /**
@@ -28,7 +28,7 @@ export interface LinkedListInterface<T> {
    * @param element
    * @returns
    */
-  remove: (element: T) => void;
+  remove: (element: T) => T | undefined;
 
   /**
    * 返回元素在链表中的索引

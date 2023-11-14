@@ -30,7 +30,7 @@ export default class LinkedList<T> implements LinkedListInterface<T> {
     if (position >= 0 && position <= this.count) {
       const node = new LinkedNode(element);
       if (position == 0) {
-        let c = this.head;
+        const c = this.head;
         node.next = c;
         this.head = node;
       } else {
@@ -60,26 +60,34 @@ export default class LinkedList<T> implements LinkedListInterface<T> {
     return undefined;
   }
 
-  // @ts-ignore
   remove(element: T) {
-    return;
+    const i = this.indexOf(element);
+    return this.removeAt(i);
   }
-  // @ts-ignore
+
   indexOf(element: T) {
+    let current = this.head;
+    for (let i = 0; i < this.count; i++) {
+      if (current && this.eqFn(current.val, element)) {
+        return i;
+      }
+      current = current?.next;
+    }
+
     return -1;
   }
 
   removeAt(index: number) {
     if (index === 0) {
       if (typeof this.head !== 'undefined') {
-        let c = this.head;
+        const c = this.head;
         this.head = this.head.next;
         this.count--;
         return c.val;
       }
     } else {
       const prev = this.getElementAt(index - 1);
-      let current = prev?.next;
+      const current = prev?.next;
       if (prev) {
         prev.next = current?.next;
         this.count--;
