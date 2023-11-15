@@ -1,3 +1,5 @@
+import { type LinkedNode } from './book/LinkedNode';
+
 /**
  * 237. 删除链表中的节点
  * @see https://leetcode.cn/problems/delete-node-in-a-linked-list/
@@ -9,12 +11,9 @@
  * 3. 然后我就没有了
  */
 
-import { type ListNode } from './LinkedList';
-
-/**
- Do not return anything, modify it in-place instead.
- */
-function deleteNode(root: ListNode | null): void {
-  root.val = root.next.val;
-  root.next = root.next.next;
+function deleteNode(root: LinkedNode<number> | null): void {
+  if (root && root.next) {
+    root.val = root.next.val;
+    root.next = root.next.next;
+  }
 }
