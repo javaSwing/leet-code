@@ -1,4 +1,4 @@
-import { LinkedNode } from "../LinkedNode";
+import { LinkedNode } from "../linked-node";
 
 /**
  * 双向链表 node 节点

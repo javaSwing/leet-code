@@ -1,4 +1,4 @@
-import LinkedList from '../book/LinkedList';
+import LinkedList from '../book/linked-list';
 
 describe('LinkedList', () => {
   it('should create empty linked list', () => {

@@ -1,4 +1,4 @@
-import { type LinkedNode } from './LinkedNode';
+import { type LinkedNode } from './linked-node';
 
 export interface LinkedListInterface<T> {
   /**

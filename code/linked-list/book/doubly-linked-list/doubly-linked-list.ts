@@ -1,5 +1,5 @@
 import { defaultEquals } from '../../../utils';
-import LinkedList from '../LinkedList';
+import LinkedList from '../linked-list';
 import DoublyNode from './doubly-node';
 
 export default class DoublyLinkedList<T> extends LinkedList<T> {

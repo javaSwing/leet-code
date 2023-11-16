@@ -1,5 +1,5 @@
 import { defaultEquals } from '../../utils';
-import { LinkedNode } from './LinkedNode';
+import { LinkedNode } from './linked-node';
 import { type LinkedListInterface } from './type';
 
 export default class LinkedList<T> implements LinkedListInterface<T> {

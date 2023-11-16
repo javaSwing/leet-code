@@ -1,4 +1,4 @@
-import { type LinkedNode } from './book/LinkedNode';
+import { type LinkedNode } from './book/linked-node';
 
 /**
  * 237. 删除链表中的节点
