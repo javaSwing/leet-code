@@ -49,11 +49,8 @@ export default class LinkedList<T> implements LinkedListInterface<T> {
   getElementAt(index: number) {
     if (index >= 0 && index < this.count) {
       let current = this.head;
-      for (let i = 0; i < this.count; i++) {
-        if (i === index) {
-          break;
-        }
-        current = current?.next;
+      for (let i = 0; i < index && current != undefined; i++) {
+        current = current.next;
       }
       return current;
     }
