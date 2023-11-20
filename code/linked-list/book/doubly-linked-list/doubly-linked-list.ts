@@ -30,12 +30,12 @@ export default class DoublyLinkedList<T> extends LinkedList<T> {
     if (index >= 0 && index <= this.count) {
       const node = new DoublyNode(e);
       if (index == 0) {
-        let c = this.head;
+        const c = this.head;
         node.next = c;
         c && (c.prev = node);
         this.head = node;
       } else if (index === this.count - 1) {
-        let c = this.tail;
+        const c = this.tail;
         node.next = c;
         c && (c.prev = node);
         this.tail = node;
@@ -43,7 +43,7 @@ export default class DoublyLinkedList<T> extends LinkedList<T> {
         let c = this.head;
         for (let i = 0; i < this.count && c !== undefined; i++) {
           if (i === index) {
-            let prev = c.prev;
+            const prev = c.prev;
             prev && (prev.next = node);
             node.prev = prev;
             node.next = c;
