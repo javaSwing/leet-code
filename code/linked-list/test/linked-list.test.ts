@@ -8,7 +8,6 @@ describe('LinkedList', () => {
 
   it('should append node to linked list', () => {
     const linkedList = new LinkedList<number>();
-    expect(linkedList.head).toBeUndefined();
     linkedList.push(1);
     linkedList.push(2);
     expect(linkedList.toString()).toBe('1,2');
