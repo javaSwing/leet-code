@@ -4,7 +4,7 @@ import { type LinkedListInterface } from './type';
 
 export default class LinkedList<T> implements LinkedListInterface<T> {
   protected count: number;
-  protected head: undefined | LinkedNode<T>;
+  head: undefined | LinkedNode<T>;
   protected eqFn: (a: T, b: T) => boolean;
 
   constructor(eq = defaultEquals) {

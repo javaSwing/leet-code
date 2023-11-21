@@ -1,20 +1,13 @@
-class LinkedNode {
-  val: number;
-  next: LinkedNode | undefined;
-  constructor(v) {
-    this.val = v;
-    this.next = undefined;
-  }
-}
-
 /**
  * 707. 设计链表
  * 尝试了好多测试用例才通过
  * @link https://leetcode.cn/problems/design-linked-list/description/
  */
 
+import { LinkedNode } from './book/linked-node';
+
 class MyLinkedList {
-  header: LinkedNode | undefined;
+  header: LinkedNode<number> | undefined;
   count: number;
 
   constructor() {
