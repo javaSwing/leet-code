@@ -20,7 +20,7 @@ export class SortedLinkedList<T> extends LinkedList<T> {
     }
   }
 
-  insert(element: T, position: number = 0) {
+  insert(element: T, position = 0) {
     if (this.isEmpty()) {
       return super.insert(element, 0);
     } else {
@@ -28,7 +28,7 @@ export class SortedLinkedList<T> extends LinkedList<T> {
       return super.insert(element, position);
     }
   }
-  private getIndexNextSortedElement<T>(element: T) {
+  private getIndexNextSortedElement(element: T) {
     let c = this.head;
     let i = 0;
     for (; i < this.count && c; i++) {

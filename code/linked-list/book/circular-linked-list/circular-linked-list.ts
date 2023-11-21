@@ -1,6 +1,6 @@
-import { defaultEquals } from "../../../utils";
-import LinkedList from "../linked-list";
-import { LinkedNode } from "../linked-node";
+import { defaultEquals } from '../../../utils';
+import LinkedList from '../linked-list';
+import { LinkedNode } from '../linked-node';
 
 /**
  * 循环链表
@@ -8,9 +8,8 @@ import { LinkedNode } from "../linked-node";
  * 双向循环链表表示在单向的基础上，head的pre指向链表的最尾节点
  */
 export default class CircularLinkedList<T> extends LinkedList<T> {
-
   constructor(equalFn = defaultEquals) {
-    super(equalFn)
+    super(equalFn);
   }
 
   push(element: T) {
@@ -39,24 +38,24 @@ export default class CircularLinkedList<T> extends LinkedList<T> {
    * 主要是在链表的头或者尾进行特别处理
    */
   insert(element: T, position: number): boolean {
-    if(position >=0 && position <= this.count) {
+    if (position >= 0 && position <= this.count) {
       const node = new LinkedNode(element);
-      let c = this.head;
-      if(position === 0) {
-        if(this.head === undefined) {
+      const c = this.head;
+      if (position === 0) {
+        if (this.head === undefined) {
           this.head = node;
           this.head.next = node;
         } else {
-            node.next = c;
-            let lastNode = this.getElementAt(this.size() - 1);
-            if(lastNode !== undefined) {
-              this.head = node;
-              lastNode.next = node;
-            }
+          node.next = c;
+          const lastNode = this.getElementAt(this.size() - 1);
+          if (lastNode !== undefined) {
+            this.head = node;
+            lastNode.next = node;
+          }
         }
       } else {
         const prev = this.getElementAt(position - 1);
-        if(prev) {
+        if (prev) {
           node.next = prev.next;
           prev.next = node;
         }
@@ -76,21 +75,21 @@ export default class CircularLinkedList<T> extends LinkedList<T> {
    * 只需要特别处理index=0时的节点处理即可
    */
   removeAt(index: number): T | undefined {
-    if(index >= 0 && index < this.count) {
+    if (index >= 0 && index < this.count) {
       let c = this.head;
-      if(index === 0) {
-        if(this.count === 1) {
+      if (index === 0) {
+        if (this.count === 1) {
           this.head = undefined;
         } else {
           const lastNode = this.getElementAt(this.count - 1);
           c = lastNode?.next;
-          if(lastNode) {
+          if (lastNode) {
             lastNode.next = c?.next;
           }
         }
-      }else {
+      } else {
         const prev = this.getElementAt(index - 1);
-        if(prev && prev.next) {
+        if (prev && prev.next) {
           c = prev.next;
           prev.next = c.next;
         }
