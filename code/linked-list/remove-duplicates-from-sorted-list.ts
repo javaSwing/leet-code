@@ -1,10 +1,16 @@
-import { ListNode } from './LinkedList';
 /**
  * 83. 删除排序链表中的重复元素
  * @see https://leetcode.cn/problems/remove-duplicates-from-sorted-list/
  */
 
-const linked1 = new ListNode({ val: -1 }).append(new ListNode({ val: 0 }).append(new ListNode(2)));
+import LinkedList from './book/linked-list';
+import { LinkedNode } from './book/linked-node';
+
+const linked1 = new LinkedList<number>();
+
+linked1.push(-1);
+linked1.push(0);
+linked1.push(2);
 
 /**
  * 暴力破解法（很笨的一个方法）
@@ -50,7 +56,7 @@ const linked1 = new ListNode({ val: -1 }).append(new ListNode({ val: 0 }).append
  * 空间复杂度：O(1)
  *
  */
-function deleteDuplicates(head: ListNode | null) {
+function deleteDuplicates(head: LinkedNode<number> | undefined) {
   if (!head) return null;
   let curr = head;
   while (curr.next) {
@@ -63,4 +69,26 @@ function deleteDuplicates(head: ListNode | null) {
   return head;
 }
 
-console.log(deleteDuplicates(linked1));
+function deleteDuplicates2(head: LinkedNode<number> | undefined) {
+  if (!head || !head.next) return head;
+  const dummy = new LinkedNode<number>(-1011);
+  let c = dummy;
+  let t: LinkedNode<number> | undefined = head;
+
+  while (t != undefined) {
+    if (c.val !== t.val) {
+      c.next = t;
+      c = c.next;
+    }
+
+    t = t.next;
+  }
+
+  if (c.next != undefined) {
+    c.next = undefined;
+  }
+
+  return dummy.next;
+}
+
+console.log(deleteDuplicates(linked1.head));
