@@ -44,6 +44,7 @@ function getSidebarConfig(lang: 'zh' | 'en') {
           getLink('/guide/book/chap4'),
           getLink('/guide/book/chap5'),
           getLink('/guide/book/chap6'),
+          getLink('/guide/book/chap7'),
           getLink('/guide/book/recursive'),
           getLink('/guide/book/heap'),
           getLink('/guide/book/chap13'),

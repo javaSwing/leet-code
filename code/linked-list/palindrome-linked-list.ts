@@ -17,13 +17,13 @@
 const isPalindromeLinked = function (head) {
   let fast = head,
     slow = head;
-  let dumy, q;
+  let dummy, q;
   while (fast && fast.next) {
     q = slow;
     slow = slow.next;
     fast = fast.next.next;
-    q.next = dumy; // 反转slow指针的链表
-    dumy = q;
+    q.next = dummy; // 反转slow指针的链表
+    dummy = q;
   }
 
   if (fast) {
@@ -31,11 +31,11 @@ const isPalindromeLinked = function (head) {
     slow = slow.next;
   }
 
-  while (dumy && slow) {
-    if (dumy.val !== slow.val) {
+  while (dummy && slow) {
+    if (dummy.val !== slow.val) {
       return false;
     }
-    dumy = dumy.next;
+    dummy = dummy.next;
     slow = slow.next;
   }
 
