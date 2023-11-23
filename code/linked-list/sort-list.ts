@@ -38,8 +38,8 @@ function mergeList(head: LinkedNode<number> | undefined): LinkedNode<number> | u
 }
 // 归并
 function merge(l: LinkedNode<number> | undefined, r: LinkedNode<number> | undefined) {
-  const dumy = new LinkedNode(-1);
-  let c = dumy;
+  const dummy = new LinkedNode(-1);
+  let c = dummy;
   while (l && r) {
     if (l.val <= r.val) {
       c.next = l;
@@ -59,5 +59,5 @@ function merge(l: LinkedNode<number> | undefined, r: LinkedNode<number> | undefi
     c.next = r;
   }
 
-  return dumy.next;
+  return dummy.next;
 }

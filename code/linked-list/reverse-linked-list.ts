@@ -3,11 +3,7 @@
  * @see https://leetcode.cn/problems/reverse-linked-list/
  */
 
-import { ListNode } from './LinkedList';
-
-const linked1 = new ListNode({ val: 1 }).append(
-  new ListNode({ val: 2 }).append(new ListNode({ val: 3 }))
-);
+import { type LinkedNode as ListNode } from './book/linked-node';
 
 /**
  * dummy 傀儡节点法
@@ -20,17 +16,17 @@ const linked1 = new ListNode({ val: 1 }).append(
  * 时间复杂度：O(n)
  * 空间复杂度：O(1)
  */
-// function reverseList(head: ListNode | null) {
-//   if (!head || !head.next) return head;
-//   let dummy: ListNode | null = null;
-//   while (head) {
-//     let next = head.next;
-//     head.next = dummy;
-//     dummy = head;
-//     head = next;
-//   }
-//   return dummy;
-// }
+export function reverseList(head: ListNode<number> | undefined) {
+  if (head == null || !head.next == null) return head;
+  let dummy: ListNode<number> | undefined;
+  while (head) {
+    const next = head.next;
+    head.next = dummy;
+    dummy = head;
+    head = next;
+  }
+  return dummy;
+}
 
 /**
  * 递归法
@@ -53,15 +49,13 @@ const linked1 = new ListNode({ val: 1 }).append(
 //   return newHead;
 // }
 
-function reverseList(head: ListNode | null) {
-  return reverseHelper(head, null);
+export function reverseList2(head: ListNode<number> | undefined) {
+  return reverseHelper(head, undefined);
 }
 
-function reverseHelper(head: ListNode, newHead: ListNode | null) {
-  if (!head) return newHead;
-  const next = head.next;
+function reverseHelper(head: ListNode<number> | undefined, newHead: ListNode<number> | undefined) {
+  if (head == null || !head.next == null) return head;
+  const next = head?.next;
   head.next = newHead;
   return reverseHelper(next, head);
 }
-
-console.log(reverseList(linked1));
