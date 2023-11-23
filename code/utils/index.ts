@@ -11,3 +11,14 @@ export const defaultCompare = (a, b) => {
   if (a === b) return 0;
   return a < b ? Compare.LESS_THAN : Compare.BIGGER_THAN;
 };
+
+export const defaultToString = (v: any) => {
+  if (v === null) {
+    return 'NULL';
+  } else if (v === undefined) {
+    return 'UNDEFINED';
+  } else if (typeof v === 'string' || v instanceof String) {
+    return `${v}`;
+  }
+  return v.toString();
+};
