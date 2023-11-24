@@ -3,7 +3,7 @@
  * @link https://leetcode.cn/problems/add-two-numbers/
  */
 
-import { ListNode } from './LinkedList';
+import { LinkedNode as ListNode } from './book/linked-node';
 
 /**
  * 迭代解法
@@ -28,7 +28,10 @@ import { ListNode } from './LinkedList';
  *
  *
  */
-function addTwoNumbersIterative(l1: ListNode | null, l2: ListNode | null): ListNode | null {
+export function addTwoNumbersIterative(
+  l1: ListNode<number> | undefined,
+  l2: ListNode<number> | undefined
+): ListNode<number> | undefined {
   const pre = new ListNode(0);
   let cur = pre;
   let bit = 0;
@@ -60,13 +63,13 @@ function addTwoNumbersIterative(l1: ListNode | null, l2: ListNode | null): ListN
  * @param l2
  * @returns
  */
-function addTwoNumbers(l1: ListNode | null, l2: ListNode | null) {
+export function addTwoNumbers(l1: ListNode<number> | undefined, l2: ListNode<number> | undefined) {
   return add(l1, l2, 0);
 }
 
-function add(l1: ListNode | null, l2: ListNode | null, bit: number) {
+function add(l1: ListNode<number> | undefined, l2: ListNode<number> | undefined, bit: number) {
   if (!l1 && !l2) {
-    return bit > 0 ? new ListNode(bit) : null;
+    return bit > 0 ? new ListNode<number>(bit) : undefined;
   }
   const trueL1 = l1 ? l1.val : 0;
   const trueL2 = l2 ? l2.val : 0;
@@ -75,4 +78,54 @@ function add(l1: ListNode | null, l2: ListNode | null, bit: number) {
   const target = new ListNode(sum % 10);
   target.next = add(l1?.next, l2?.next, Math.floor(sum / 10));
   return target;
+}
+
+export function addTwoNumbers3(
+  l1: ListNode<number> | undefined,
+  l2: ListNode<number> | undefined
+): ListNode<number> | undefined {
+  const root = new ListNode(-1);
+  let tr = root;
+  let c1 = l1;
+  let c2 = l2;
+  let t = 0;
+  while (c1 != null || c2 != null) {
+    let sum;
+    if (c1 != null && c2 != null) {
+      sum = c1.val + c2.val;
+    } else {
+      const t1 = c1 == null ? 0 : c1.val;
+      const t2 = c2 == null ? 0 : c2.val;
+      sum = t1 + t2;
+    }
+
+    if (t > 0) {
+      sum += t;
+      t = 0;
+    }
+    if (sum > 9) {
+      sum = sum % 10;
+      t = 1;
+    }
+
+    const n = new ListNode(sum);
+    tr.next = n;
+    tr = tr.next;
+
+    if (c1 != null) {
+      c1 = c1.next;
+    }
+
+    if (c2 != null) {
+      c2 = c2.next;
+    }
+  }
+
+  if (t !== 0) {
+    const node = new ListNode(t);
+    tr.next = node;
+    tr = tr.next;
+  }
+
+  return root.next;
 }
