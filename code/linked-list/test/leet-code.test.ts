@@ -1,5 +1,6 @@
 import { addTwoNumbers, addTwoNumbers3, addTwoNumbersIterative } from '../add-two-numbers';
 import LinkedList from '../book/linked-list';
+import { deleteNode } from '../delete-node-in-a-linked-list';
 import { reverseList } from '../reverse-linked-list';
 
 describe('leet code linked list test', () => {
@@ -40,5 +41,18 @@ describe('leet code linked list test', () => {
     expect(head1?.toString()).toBe('8,9,9,9,0,0,0,1');
     expect(head2?.toString()).toBe('8,9,9,9,0,0,0,1');
     expect(head3?.toString()).toBe('8,9,9,9,0,0,0,1');
+  });
+
+  it('test deleteNode linked list by leet code 237', () => {
+    const linkedList1 = new LinkedList<number>();
+    linkedList1.push(4);
+    linkedList1.push(5);
+    linkedList1.push(1);
+    linkedList1.push(9);
+
+    const n = linkedList1.getElementAt(2);
+    n && deleteNode(n);
+
+    expect(linkedList1.toString()).toBe('4,5,9');
   });
 });
