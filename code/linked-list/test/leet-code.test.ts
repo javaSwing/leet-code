@@ -1,7 +1,9 @@
 import { addTwoNumbers, addTwoNumbers3, addTwoNumbersIterative } from '../add-two-numbers';
 import LinkedList from '../book/linked-list';
 import { deleteNode } from '../delete-node-in-a-linked-list';
+import { removeElements } from '../remove-linked-list-elements';
 import { reverseList } from '../reverse-linked-list';
+import { reverseBetween2 } from '../reverseBetween';
 
 describe('leet code linked list test', () => {
   it('test reverse linked list by leet code 206', () => {
@@ -54,5 +56,28 @@ describe('leet code linked list test', () => {
     n && deleteNode(n);
 
     expect(linkedList1.toString()).toBe('4,5,9');
+  });
+
+  it('test reverseBetween2 by leet code 92', () => {
+    const linkedList1 = new LinkedList<number>();
+    linkedList1.push(1);
+    linkedList1.push(2);
+    linkedList1.push(3);
+    linkedList1.push(4);
+    linkedList1.push(5);
+
+    const h = reverseBetween2(linkedList1.head, 2, 4);
+    expect(h?.toString()).toBe('1,4,3,2,5');
+  });
+
+  it('test removeElements by leet code 203', () => {
+    const linkedList1 = new LinkedList<number>();
+    linkedList1.push(7);
+    linkedList1.push(7);
+    linkedList1.push(7);
+    linkedList1.push(7);
+
+    const h = removeElements(linkedList1.head, 7);
+    expect(h?.toString()).toBeUndefined();
   });
 });
