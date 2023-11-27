@@ -8,4 +8,21 @@ export class LinkedNode<T> {
     this.val = v;
     this.next = next;
   }
+
+  toString() {
+    if (!this) {
+      return '';
+    }
+    let result = `${this?.val}`;
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
+    let current: LinkedNode<T> | undefined = this.next;
+    while (current !== undefined) {
+      if (current) {
+        result += `,${current.val}`;
+      }
+      current = current.next;
+    }
+
+    return result;
+  }
 }

@@ -11,7 +11,7 @@ import { type LinkedNode } from './book/linked-node';
  * 3. 然后我就没有了
  */
 
-function deleteNode(root: LinkedNode<number> | null): void {
+export function deleteNode(root: LinkedNode<number> | null): void {
   if (root && root.next) {
     root.val = root.next.val;
     root.next = root.next.next;
