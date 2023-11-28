@@ -12,7 +12,7 @@ export const defaultCompare = (a, b) => {
   return a < b ? Compare.LESS_THAN : Compare.BIGGER_THAN;
 };
 
-export const defaultToString = (v: any) => {
+export const defaultToString = (v: any): string => {
   if (v === null) {
     return 'NULL';
   } else if (v === undefined) {
