@@ -1,4 +1,5 @@
 import HashTable from '../book/hash-table';
+import HashTableSeParateChaining from '../book/hash-table/hash-table-separate-chaining';
 
 describe('test hash table', () => {
   it('test constructor', () => {
@@ -28,5 +29,18 @@ describe('test hash table', () => {
     hashTable.remove(19);
 
     expect(hashTable.toString()).toBe('');
+  });
+
+  it('test HashTableSeParateChaining', () => {
+    const ht = new HashTableSeParateChaining();
+
+    ht.put(1, 'javaswing');
+    ht.put(1, 'chenfeng');
+    expect(ht.toString()).toBe('1 => [1: javaswing],[1: chenfeng]');
+
+    expect(ht.get(1)).toBe('javaswing');
+
+    ht.remove(1);
+    expect(ht.toString()).toBe('');
   });
 });
