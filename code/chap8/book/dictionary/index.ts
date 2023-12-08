@@ -1,5 +1,5 @@
 import { defaultToString } from '../../../utils';
-import ValuePair from './value-pair';
+import ValuePair from '../../../utils/value-pair';
 
 /**
  * 字典数据结构

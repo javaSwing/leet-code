@@ -13,6 +13,10 @@ export default class LinkedList<T> implements LinkedListInterface<T> {
     this.eqFn = eq;
   }
 
+  getHead() {
+    return this.head;
+  }
+
   push(element: T) {
     const node = new LinkedNode<T>(element);
     if (this.head == null) {
