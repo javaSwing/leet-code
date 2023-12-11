@@ -2,7 +2,7 @@
   "cSpell.words": ["Deque", "nlogn"],
 
   "editor.codeActionsOnSave": {
-    "source.fixAll": true
+    "source.fixAll": "explicit"
   },
   "eslint.validate": ["javascript", "typescript"],
   "typescript.tsdk": "node_modules/typescript/lib"
