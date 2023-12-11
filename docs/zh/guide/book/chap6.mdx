@@ -15,7 +15,7 @@
 
 ## 常见的链表类型
 
-如下图所示，常见的链表主要分为以下几类：
+如下图所示，
 
 ![](/linkedlist-type.jpg)
 
@@ -43,51 +43,162 @@ export default class DoublyNode<T>{
 
 ### 链表的常见操作
 
-#### 1. 添加一个节点
+链表的结构操作一般分为：增、删、改(这个操作很少见)、查这4种常用的操作，对于链表的算法类题也是基于这几种情况。
 
-#### 2. 删除一个节点
+#### 1. 链表结构的定义
 
-#### 3. 访问节点
+链表都是链节点通过`next`链接而成的，一个基本的链表包含以下内容：
 
-#### 4. 查找节点
+- **链表节点（LinkedNode）**：使用`val`来保存当前节点的值，使用`next`指向后续的节点
+- **链表（LinkedList）**: 使用`head`来表示链表的头节点，初始时该属性为`undefined`或者`null`
 
-
-
-
-
-
-
-
-::: tip链表的节点
-每个链表的节点(Node)，一般情况下都有两个属性。`val`和`next`。`val`为该节点的值，`next`为指定下一个节点的引用（指针），当节点为最尾时，其`next`指向为null。下面为一个典型的`LinkedNode`代码
-
-``` typescript title="LinkedNode.ts"
+``` typescript title="链表的定义"
+/** 链表节点 */
 export class LinkedNode<T> {
   val: T;
   next: undefined | LinkedNode<T>;
-  constructor(v: T) {
+  constructor(v: T, next: undefined | LinkedNode<T> = undefined) {
     this.val = v;
-    this.next = undefined;
+    this.next = next;
   }
 }
+
+/** 链表 */
+export default class LinkedList<T> {
+  /** 链表长度 */
+  protected count: number;
+  head: undefined | LinkedNode<T>;
+  protected eqFn: (a: T, b: T) => boolean;
+
+  /** eq 方法为书本中默认的数值比较方法 */
+  constructor(eq = defaultEquals) {
+    this.count = 0;
+    this.head = undefined;
+    this.eqFn = eq;
+  }
+}
+
 ```
+快速初始化一个链表节点代码如下：
+
+```typescript
+// 链表 1->2->3->5
+const n0 = new LinkedNode(1);
+const n1 = new LinkedNode(2);
+const n2 = new LinkedNode(3);
+const n3 = new LinkedNode(5);
+
+n0.next = n1;
+n1.next = n2;
+n2.next = n3;
+
+// 当然可以直接初始化一个空链表
+const linkedList = new LinkedLis<number>();
+```
+::: tip链表的代称
+由定义可知链表是由多个独立的节点对象串联而成，我们通过把链表的**头节点**当作链表代称（这也是LeetCode题目中经常见的），比如上的链表可记作链表`n0`。
 :::
 
-## 单向链表
+#### 2. 访问节点
 
-单向链表是指：链表在连接的过程中，只通过next指针，指向下一个节点，为单向串联链表结构。首个节点称之为头节点，最后一个节点称为尾节点，尾节点的`next`指向为`null`
+这个就很容易理解，使用for循环在合法的链表长度内，找到指定索引的指即可。否则返回`undefined`，需要注意的是**访问节点**的效率比较低，因为该方法最坏的情况
+会到*O*(*n*)。
 
-![](/single-linked-list-pic.jpg)
+``` typescript title="getElemetAt"
 
-## 双向链表
+getElementAt(index: number) {
+  if (index >= 0 && index < this.count) {
+    let current = this.head;
+    for (let i = 0; i < index && current != undefined; i++) {
+      current = current.next;
+    }
+    return current;
+  }
+  return undefined;
+}
+```
 
-与单向链表相比较而言，双向链表在链表节点内部多了一个指针指向前一个节点。也就是说一个节点有`next`指针和`prev`指针。在遍历上，可以正向遍历也可以反向遍历。
 
 
-## 参考
-- [链表](https://www.hello-algo.com/chapter_array_and_linkedlist/linked_list/)
-- [链表基础知识](https://algo.itcharge.cn/02.Linked-List/01.Linked-List-Basic/01.Linked-List-Basic/)
+#### 2. 插入节点
 
+在链表插入节点，主要有以下几种情况：
+
+- 在链表头部插入节点
+
+这个就很容易操作，只需要把插入的节点`next`指向`head`，然后把插入的节点赋值给`head`即可.
+```typescript
+const c = this.head;
+node.next = c;
+this.head = node;
+```
+- 在链表中间插入节点
+- 在链表尾部插入节点
+
+上面两个插入操作，可以统一理解为在链表正常的节点中进行插入操作。对应处理方式如下：先查找到插入位置
+前一个节点（使用getElementAt），然后把前一个节点的`next`指向插入的节点，插入节点的`next`指向前一个节点的`next`节点即可。
+
+``` typescript title="完整的insert方法"
+
+insert(element: T, position: number) {
+  if (position >= 0 && position <= this.count) {
+    const node = new LinkedNode(element);
+    if (position == 0) {
+      const c = this.head;
+      node.next = c;
+      this.head = node;
+    } else {
+      const pre = this.getElementAt(position - 1);
+      if (pre) {
+        const next = pre.next;
+        pre.next = node;
+        node.next = next;
+      }
+    }
+    this.count++;
+    return true;
+  }
+  return false;
+}
+```
+
+#### 3. 删除节点
+
+删除链表节点，在leetcode中的有不少的题目，这里删除有以下两种方法：
+
+- 获取删除节点的前一个节点值，然后把前一个节点的next调整为删除节点的next
+- 在leetcode中题目[237. 删除链表中的节点](https://leetcode.cn/problems/delete-node-in-a-linked-list/)，删除当前节点。
+该题目是无法知道前一个节点的。
+
+使用另一种思路：`current.val`(当前节点的值)变为`current.next.val`，然后把`current.next` = `current.next.next`
+即：使用后一个节点的值赋值给当前节点，然后把当前节点的`next`赋值给当前节点的`next.next`
+
+#### 4. 查找节点
+
+查找节点，并返回该节点在链表上的索引位置。此过程也属于线性查找
+
+``` typescript title="indexOf"
+indexOf(element: T) {
+  let current = this.head;
+  for (let i = 0; i < this.count; i++) {
+    if (current && this.eqFn(current.val, element)) {
+      return i;
+    }
+    current = current?.next;
+  }
+
+  return -1;
+}
+```
+
+#### 总结
+
+| 方法   | 描述 |     时间复杂度 |
+| :----- | :-- | :-------:  |
+| 插入元素 |  在指定的索引插入元素  | *O*(*1*)
+| 访问节点 | 查找指定索引的元素  | *O*(*n*)
+| 查找节点 | 查找指定值的元素  | *O*(*n*)
+| 删除节点 | 查找指位置的元素  | *O*(*n*)
 
 ## 链表与数组
 
@@ -95,4 +206,21 @@ export class LinkedNode<T> {
 
 **链表**存储有序的元素集合，但不同于数组。链表在内存中并不是连续的放置，且可以动态扩展。每个元素由自身和指向一个的引用的指针组合。
 
-与数组相比较，链表元素的插入或者添加，并不需要移动其它元素，只需要找到目标位置，调整其它指向下个元素的引用，即可完成对应的操作。现实生活中一个很典型的例子就是火车。链表主要分为以下几类：
+效率对比如下：
+
+|    | 数组 |     链表 |
+| :----- | :-- | :-------  |
+| 存储方式 |  连续的内存空间  | 分散的内存空间
+| 容量 | 初始化时定死  | 动态扩展
+| 内存效率 | 占用内存少，值少是浪费空间  | 元素占用空间多
+| 访问元素 | *O*(*1*)  | *O*(*n*)
+| 添加元素 | *O*(*n*)  | *O*(*1*)
+| 删除元素 | *O*(*n*)  | *O*(*1*)
+
+
+## 参考
+- [链表](https://www.hello-algo.com/chapter_array_and_linkedlist/linked_list/)
+- [链表基础知识](https://algo.itcharge.cn/02.Linked-List/01.Linked-List-Basic/01.Linked-List-Basic/)
+
+
+

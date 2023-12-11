@@ -1,9 +1,23 @@
 import LinkedList from '../book/linked-list';
+import { LinkedNode } from '../book/linked-node';
 
 describe('LinkedList', () => {
   it('should create empty linked list', () => {
     const linkedList = new LinkedList();
     expect(linkedList.toString()).toBe('');
+  });
+
+  it('should create linkeNode', () => {
+    const n0 = new LinkedNode(1);
+    const n1 = new LinkedNode(2);
+    const n2 = new LinkedNode(3);
+    const n3 = new LinkedNode(5);
+
+    n0.next = n1;
+    n1.next = n2;
+    n2.next = n3;
+
+    expect(n0.toString()).toBe('1,2,3,5');
   });
 
   it('should append node to linked list', () => {
