@@ -11,15 +11,15 @@
  */
 export function maxAlternatingSum(nums: number[]): number {
   const len = nums.length;
-    const arr: number[] = new Array(len + 1).fill(0);
-    const g = arr.slice();
+  const arr: number[] = new Array(len + 1).fill(0);
+  const g = arr.slice();
 
-    for(let i = 1; i <= len; i++) {
-        arr[i] = Math.max(g[i-1] + nums[i-1], arr[i-1]);
-        g[i] = Math.max(arr[i-1] - nums[i-1], g[i-1]);
-    }
-    return Math.max(arr[len], g[len])
-};
+  for (let i = 1; i <= len; i++) {
+    arr[i] = Math.max(g[i - 1] + nums[i - 1], arr[i - 1]);
+    g[i] = Math.max(arr[i - 1] - nums[i - 1], g[i - 1]);
+  }
+  return Math.max(arr[len], g[len]);
+}
 
 /**
  * 看到的另一种理解写法
@@ -40,10 +40,10 @@ function maxAlternatingSum2(nums: number[]): number {
   let a = 0;
   let b = nums[0];
 
-for(let i = 1; i < nums.length; i++) {
-  a = Math.max(b - nums[i], a);
-  b = Math.max(a + nums[i],b)
-}
+  for (let i = 1; i < nums.length; i++) {
+    a = Math.max(b - nums[i], a);
+    b = Math.max(a + nums[i], b);
+  }
 
-return Math.max(a, b);
-};
+  return Math.max(a, b);
+}

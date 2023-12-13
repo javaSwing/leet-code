@@ -12,21 +12,21 @@
  *
  * 注：另外，交换数据最好使用es6的数组结构，方便且直观。缺点就是在书上说过，性能上明显低于临时变量交换的性能
  */
- export function rotate(matrix: number[][]): void {
-  let n = matrix.length;
+export function rotate(matrix: number[][]): void {
+  const n = matrix.length;
   // 水平翻转
-  for(let i = 0; i < Math.floor(n/2); i++) {
-      for(let j = 0; j < n; j++) {
-          [matrix[i][j], matrix[n - 1 -i][j]] =  [matrix[n - 1 -i][j], matrix[i][j]]
-      }
+  for (let i = 0; i < Math.floor(n / 2); i++) {
+    for (let j = 0; j < n; j++) {
+      [matrix[i][j], matrix[n - 1 - i][j]] = [matrix[n - 1 - i][j], matrix[i][j]];
+    }
   }
 
   // 按左侧水平中线翻转
-  for(let i = 0; i < n; i++) {
-      for(let j = 0; j < i; j++) {
-          if(i != j) {
-              [matrix[i][j], matrix[j][i]] = [matrix[j][i], matrix[i][j]]
-          }
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < i; j++) {
+      if (i != j) {
+        [matrix[i][j], matrix[j][i]] = [matrix[j][i], matrix[i][j]];
       }
+    }
   }
-};
+}
