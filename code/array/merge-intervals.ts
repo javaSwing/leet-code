@@ -4,7 +4,7 @@
  * @returns
  * @link https://leetcode.cn/problems/merge-intervals/description/?envType=study-plan-v2&envId=top-100-liked
  */
-function merge(intervals: number[][]): number[][] {
+function merge4(intervals: number[][]): number[][] {
   if (intervals.length == 1) return intervals;
   const result: number[][] = [];
   intervals.sort((a, b) => (a[0] == b[0] ? a[1] - b[1] : a[0] - b[0]));
