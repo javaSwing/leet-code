@@ -9,79 +9,101 @@
 这个是高中数据的知识点，0的阶乘是`1`，负数的阶乘不存在
 5!(5的阶乘) = 5 x 4 x 3 x 2 x 1 = 120
 
-```js
-// 递归
-function factorialRecursive(num) {
-  if (num === 0 || num === 1) return 1;
+``` typescript title="阶乘实现"
+export function factorialIterative(num: number) {
   if (num < 0) return;
-  return num * factorialRecursive(num - 1);
+  let total = 1;
+  for (let n = num; n > 1; n--) {
+    total *= n;
+  }
+  return total;
 }
 
-// 迭代
-function factorialIterative(num) {
-  let result = 1;
-  // if(num <= 2) return num;
-  for (let index = 1; index <= num; index++) {
-    result *= index;
+export function factorial(num: number) {
+  if (num == 0 || num == 1) {
+    return 1;
   }
-  return result;
+  return num * factorial(num - 1);
 }
+
 ```
+![递归调用堆栈](/recursive.gif)
+
+:::tip尾调用优化
+ ES6支持**尾调用优化(tail call optimization)**，是指一个函数的最后一步是调用别一个函数。一般递归很符合这个场景。
+ ``` typescript
+ function fn (n: number) {
+  const y = n + 1;
+  // 最的一步是调用另一个函数
+  return g(y);
+ }
+ ```
+
+以上面的例子来说：正常的执行时，执行`g()`时，程序的stack中需要保存`fn`函数的上下文。对`尾调用优化`,在执行的时候可以带着`y`的确定值，进行执行而不用保存`fn`函数的上下文，从而减少内存。
+:::
 ## 斐波那契数列
 
-0 1 1 2 3 5 即后一位为前两位的和
+> 0 1 1 2 3 5 即后一位为前两位的和
 
 - 位置是0的数列为零
 - 1和2的斐波那契数为1
-- n > 2的数列为： (n -1) + (n - 2)
+- `n > 2`的数列为： `(n -1) + (n - 2)`
 
-```js
-// 递归
-function fibonacciRecursive(num) {
-  if (num < 1) return 0;
-  if (num === 1 || num === 2) return 1;
-  return fibonacciRecursive(num - 1) + fibonacciRecursive(num - 2);
-}
+```typescript title="斐波那契数列"
+export function fibonacciIterative(n: number) {
+  if (n < 1) return 0;
+  if (n <= 2) return 1;
 
-
-// 迭代
-function fibonacciIterative(num) {
-  if (num < 1) return 0;
-  if (num === 1 || num === 2) return 1;
-
-  let res = 0;
-  let f1 = 0;
-  let f2 = 1;
-  //   正向迭代 初始化为0，所以迭代次数为：位数 - 1
-  for (let index = 0; index < num - 1; index++) {
-    res = f1 + f2;
-    f1 = f2;
-    f2 = res;
+  let fibN = n;
+  let fib1 = 0;
+  let fib2 = 1;
+  for (let i = 2; i <= n; i++) {
+    fibN = fib1 + fib2;
+    fib1 = fib2;
+    fib2 = fibN;
   }
 
-  return res;
+  return fibN;
+}
+
+export function fibonacci(n: number) {
+  if (n < 1) return 0;
+  if (n <= 2) return 1;
+
+  return fibonacci(n - 1) + fibonacci(n - 2);
 }
 ```
 
 ### 记忆化的fibonacci
 
-主要用一个数据进行结果的缓存，memo。减少计算次数，从而提高效率
+主要用一个数据进行结果的缓存，memo。减少计算次数，从而提高效率。也就是用内存换时间，可以做为一个优化点
 
-```js
-function fibonacciMemoization(n) {
-  const memo = [0, 1]; // {1}
-  const fibonacci = (n, memo) => {
-    if (memo[n] != null) return memo[n]; // {2}
-    return (memo[n] = fibonacci(n - 1, memo) + fibonacci(n - 2, memo)); // {3}
-  };
-  return fibonacci(n, memo);
+```typescript
+export function fibonacciMemo(n: number) {
+  const memo = [0, 1];
+
+  return fibFun(n, memo);
+}
+
+function fibFun(n: number, memo: Record<string, any>) {
+  if (memo[n] != null) return memo[n];
+  const v = fibFun(n - 1, memo) + fibFun(n - 2, memo);
+  memo[n] = v;
+  return v;
 }
 ```
 
 ## 总结
 
 - 性能层面
+
   递归和迭代相比并不具有性能优势。有些情况下还不如迭代。
 
 - 优点
+
   代码量少，容读
+
+## 参考
+
+1. https://exploringjs.com/es6/ch_tail-calls.html
+2. https://www.ruanyifeng.com/blog/2015/04/tail-call.html

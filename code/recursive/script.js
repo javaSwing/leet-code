@@ -22,7 +22,7 @@ function factorialRecursive(num) {
 }
 
 try {
-  // console.log(factorialRecursive(5))
+  console.log(factorialRecursive(5));
 } catch (error) {
   console.error(error);
 }
