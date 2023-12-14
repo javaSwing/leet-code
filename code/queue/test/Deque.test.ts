@@ -1,4 +1,4 @@
-import Deque from '../Deque';
+import Deque from '../book/Deque';
 
 describe('Dequeue', () => {
   it('should create empty queue', () => {

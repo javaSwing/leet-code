@@ -1,4 +1,4 @@
-import { DequeType } from './type';
+import { type DequeType } from './type';
 
 /**
  * 双端队列
@@ -39,22 +39,21 @@ export default class Deque<T> implements DequeType<T> {
     this.count++;
   }
   removeFront() {
-    if(this.isEmpty()) return;
+    if (this.isEmpty()) return;
     delete this.items[this.lowestCount];
     this.lowestCount++;
   }
   removeBack() {
-    if(this.isEmpty()) return;
+    if (this.isEmpty()) return;
     delete this.items[this.count];
     this.count--;
   }
   peekFront() {
-    if(this.isEmpty()) return;
+    if (this.isEmpty()) return;
     return this.items[this.lowestCount];
-
   }
   peekBack() {
-    if(this.isEmpty()) return;
+    if (this.isEmpty()) return;
     return this.items[this.count];
   }
 
