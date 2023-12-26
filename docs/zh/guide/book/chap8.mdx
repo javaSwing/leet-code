@@ -1,6 +1,112 @@
 # 第8章 字典和散列表
 
+## 散列表
+哈希表（hash table）又称散列表，通过建立键`key`与值`value`之间的关系，并提供高效查询`O(1)`的一种数组结构。
+<img src="/hash-table.jpeg" width="800"/>
+### 简单实现
+根据哈希表的定义和图示，根据书中的描述来简单的实现一个哈希表。书中完整的实现在[这里](https://github.com/javaswing/leet-code/blob/main/code/chap8/book/hash-table/index.ts)。我们这里使用一个`Object`对象来存储哈希表的内容（毕竟`key`是唯一的，且用`Object`取的时候为`O(1)`）。
+通过上面图我们可以观察到，在哈希表中使用一个特殊的key来指向一个具象的`key`、`value`。我们把可以值抽象成一个`Object` `ValuePair`。
+下面的问题就变成了如何把输入的`key`转化为一个具有唯一标识的`hasCode`。这里使用的对应字符的`Unicode`码，一个简单的实现如下：
+```typescript
+private loseloseHashCode(key: K) {
+  if (typeof key === 'number') {
+    return key;
+  }
 
+  const tableKey = this.toStrFn(key);
+  let hash = 0;
+  for (let index = 0; index < tableKey.length; index++) {
+    hash += tableKey.charCodeAt(index);
+  }
+
+  // %37 用于减小整体 hash 值的大小
+  return hash % 37;
+}
+```
+通过Hash Function，把对应的key计算成唯一值，然后我们以`hashcode`为`key` ，对应的值为`Value`存储到`Object`中。
+### 哈希冲突 （Hash **Collision**）
+在绝对理想的情况下，我们通过Hash Function计算出来的hashcode应该都是唯一的。但是真实的情况并是这样的。以下面例子来说：
+```typescript
+Jamie hash code is 5
+Sue hash code is 5
+```
+当两个完全不同的`key` Jamie和Sue通过Hash Function计算hash code后，发现key是一样。这就是**哈希冲突。**
+<img src="/hash-confillion.jpeg" width="800"/>
+**在解决哈希冲突的办法有很多：**
+
+1. **链式地址法 （Chaining）**
+2. **开放寻址法 （Open Addressing）**
+
+**这里只说下链式地址法，其原理把哈希的值放到一个链表中保存，遇到哈希冲突时会把对应值用链表串联起来。对应的其它操作时也需要进行特殊处理。**
+<img src="/hash-chaining.jpeg" width="800"/>
+```typescript
+public put(k: K, v: V) {
+  if (k != null && v != null) {
+    const ks = this.hasCode(k);
+    if (!this.table[ks]) {
+      this.table[ks] = new LinkedList<ValuePair<K, V>>();
+    }
+    this.table[ks].push(new ValuePair(k, v));
+    return true;
+  }
+  return false;
+}
+```
+### 数组、链表区别
+同为存储元素，在增、删、改的效率上三者的差别如下表：
+
+|  | 数组 | 链表 | 哈希表 |
+| --- | --- | --- | --- |
+| 增加元素 | O(1) | O(1) | O(1) |
+| 查找元素 | O(n) | O(n) | O(1) |
+| 删除元素 | O(n) | O(n) | O(1) |
+
+## 字典
+字典（Dictionary）是以[键，值]的形式存储数据结构，个人从书本上看下来，整体和javascript中的`Object`结构、ES6中的`Map`很像。这种数据结构在C#、python等语言中都是天生支持的。没有很难理解的地方，直接上具体实现，点击[这里](https://github.com/javaswing/leet-code/blob/main/code/chap8/book/dictionary/index.ts)。
+## ES6中对应的实现
+到了这里，在ES6之前javascript语言中并没有天生支持以上两种数据结构的数据类型。在ES6里新增了一些数据结构：
+### [Map](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Map)
+以下是来自MDN的说明
+> **Map** 对象保存键值对，并且能够记住键的原始插入顺序。任何值（对象或者[原始值](https://developer.mozilla.org/zh-CN/docs/Glossary/Primitive)）都可以作为键或值。
+> 规范要求 map 实现“平均访问时间与集合中的元素数量呈次线性关系”。因此，它可以在内部表示为哈希表（使用 O(1) 查找）、搜索树（使用 O(log(N)) 查找）或任何其他数据结构，只要复杂度小于 O(N)。
+
+在刷题时需要使用哈希表特性的题，基本都是使用map或者object来进行实现（主要是key的唯一性）这个特性。
+```typescript
+const map = new Map();
+
+map.set(1, 'javaswing');
+map.set(2, 'zzc');
+
+console.log(map.has(1)); // true
+console.log(map.keys()); // MapIterator {1, 2} 返回的是一个iterator对象
+console.log(map.values()); // MapIterator {'javaswing', 'zzc'}
+
+console.log(map.size) // 2 注意这里的size是一个属性，并不是方法
+
+map.delete(1); // true
+map.get(1); // undefined
+```
+关于Map和Object的区别，可以参考MDN上的[说明](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Map#object_%E5%92%8C_map_%E7%9A%84%E6%AF%94%E8%BE%83)。
+另外Map类型在程序的实际应用场景中，可以利用key支持任意类型的特性。减少很多if else判断代码。
+### [WeakMap](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/WeakMap)
+> **WeakMap** 是一种**键值对**的集合，其中的键必须是对象或[非全局注册的符号](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Symbol#%E5%85%A8%E5%B1%80%E5%85%B1%E4%BA%AB%E7%9A%84_symbol)，且值可以是任意的 [JavaScript 类型](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Data_structures)，并且不会创建对它的键的强引用。换句话说，一个对象作为 WeakMap 的键存在，不会阻止该对象被垃圾回收。一旦一个对象作为键被回收，那么在 WeakMap 中相应的值便成为了进行垃圾回收的候选对象，只要它们没有其他的引用存在。唯一可以作为 WeakMap 的键的类型是[非全局注册的符号](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Symbol#%E5%85%A8%E5%B1%80%E5%85%B1%E4%BA%AB%E7%9A%84_symbol)，因为非全局注册的符号是保证唯一的，并且不能被重新创建。
+
+### [WeakSet](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/WeakSet)
+> **WeakSet** 是可被垃圾回收的值的集合，包括对象和[非全局注册的符号](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Symbol#%E5%85%A8%E5%B1%80%E5%85%B1%E4%BA%AB%E7%9A%84_symbol)。WeakSet 中的值只能出现一次。它在 WeakSet 的集合中是唯一的。
+> 它和 [Set](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Set) 对象的主要区别有：
+> - WeakSet **只能是对象和符号**的集合，它不能像 [Set](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Set) 那样包含任何类型的任意值。
+> - WeakSet 持_弱引用_：WeakSet 中对象的引用为_弱_引用。如果没有其他的对 WeakSet 中对象的引用存在，那么这些对象会被垃圾回收。
+
+这两个数据结构为弱化版本的Map和Set，弱化的地方为对值的引用，为弱引用。具体的说：如果以上两个类型的数组结构中的**键（key）**为程序其它地方的引用，不会影响垃圾回收机制对于该引用的回收（Map和Set为强引用，不能让垃圾机制释放）。
+另一个是必须使用键才能取到值，没有entire、forEach、keys、values等方法
+## 解题心得
+在需要使用哈希表特性相关leetCode题目中，大多使用都是使用的哈希表键（key）的唯一性特性。需要注意是在hash table、查、增、删都是`O(1)`复杂度。如果要求**空间复杂度为常量，基本上都是原有数据上进行修改**。不能创建新的变量。
+## 题目列表
+
+todo
 ## 参考
 
-1. https://samwho.dev/hashing/
+1. [https://samwho.dev/hashing/](https://samwho.dev/hashing/)
+2. https://www.hello-algo.com/chapter_hashing/hash_map/#613
+3. https://algo.itcharge.cn/05.Hash-Table/01.Hash-Table/
+
