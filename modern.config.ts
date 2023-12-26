@@ -91,6 +91,13 @@ export default defineConfig({
         // Footer text
         message: '© 2023 JavaSwing  Reserved.',
       },
+      socialLinks: [
+        {
+          icon: 'github',
+          mode: 'link',
+          content: 'https://github.com/javaswing/leet-code',
+        },
+      ],
       // 不同语言的配置
       // Configuration for different languages
       locales: [

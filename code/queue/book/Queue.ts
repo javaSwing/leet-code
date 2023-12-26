@@ -1,4 +1,4 @@
-import { QueueType } from './type';
+import { type QueueType } from './type';
 
 /**
  * 队列的实现，

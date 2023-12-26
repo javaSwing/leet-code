@@ -1,8 +1,8 @@
-import Queue from '../Queue';
+import Queue from './Queue';
 
 function hotPotato<T>(elementList: T[], num: number) {
   const queue = new Queue<T>();
-  const elimitatedList:T[] = [];
+  const elimitatedList: T[] = [];
 
   for (let index = 0; index < elementList.length; index++) {
     const element = elementList[index];
