@@ -1,5 +1,5 @@
 import BinarySearchTree from './binary-search-tree';
-import TreeNode from './treeNode';
+import TreeNode from './tree-node';
 import { COMPARE_ENUM, defaultCompare } from './util';
 
 /**

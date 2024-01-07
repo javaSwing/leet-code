@@ -22,3 +22,5 @@ export const defaultToString = (v: any): string => {
   }
   return v.toString();
 };
+
+export type DefaultCompare = typeof defaultCompare;

@@ -6,16 +6,16 @@
  * 目前这一题是通过题解扫一眼，别人递归答案。自己分析出来的。
  */
 
-class TreeNode {
-  val: number;
-  left: TreeNode | null;
-  right: TreeNode | null;
-  constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
-    this.val = val === undefined ? 0 : val;
-    this.left = left === undefined ? null : left;
-    this.right = right === undefined ? null : right;
-  }
-}
+// class TreeNode {
+//   val: number;
+//   left: TreeNode | null;
+//   right: TreeNode | null;
+//   constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
+//     this.val = val === undefined ? 0 : val;
+//     this.left = left === undefined ? null : left;
+//     this.right = right === undefined ? null : right;
+//   }
+// }
 
 /**
  * 递归写法

@@ -1,4 +1,4 @@
-import TreeNode from './treeNode';
+import TreeNode from './tree-node';
 import { type CompareType, COMPARE_ENUM, defaultCompare } from './util';
 
 type CallBackType = (key?: unknown) => void;
