@@ -1,62 +1,67 @@
-import BinarySearchTree from '../binary-search-tree';
+import { default as BinarySearchTree } from '../binary-search-tree';
 
 describe('BinarySearch.test', () => {
-  it('should create empty tree', () => {
-    const tree = new BinarySearchTree<number>();
-    expect(tree.root).toBeNull();
+  let tree: BinarySearchTree;
+  beforeEach(() => {
+    tree = new BinarySearchTree();
     tree.insert(11);
     tree.insert(7);
     tree.insert(15);
+    tree.insert(5);
   });
 
-  const fn = (key) => console.log(key);
-  const tree = new BinarySearchTree<number>();
-  tree.insert(11);
-  tree.insert(7);
-  tree.insert(15);
-  tree.insert(5);
-  tree.insert(3);
-  tree.insert(9);
-  tree.insert(8);
-  tree.insert(10);
-  tree.insert(13);
-  tree.insert(12);
-  tree.insert(14);
-  tree.insert(20);
-  tree.insert(18);
-  tree.insert(25);
-  tree.insert(6);
+  it('should create empty tree', () => {
+    expect(tree.root).toBeNull();
+  });
 
-  // it("inOrderTraverse", () => {
-  //   tree.inOrderTraverse(fn);
-  // });
+  it('inOrderTraverse', () => {
+    const res: number[] = [];
+    const fn = (key) => {
+      res.push(key);
+    };
 
-  // it("prevOrderTraverse", () => {
-  //   tree.prevOrderTraverse(fn);
-  // });
+    tree.inOrderTraverse(fn);
 
-  // it("postOrderTraverse", () => {
-  //   tree.postOrderTraverse(fn);
-  // });
+    expect(res.toString()).toBe('5,7,11,15');
+  });
+
+  it('preOrderTraverse', () => {
+    const res: number[] = [];
+    const fn = (key) => {
+      res.push(key);
+    };
+    tree.preOrderTraverse(fn);
+
+    expect(res.toString()).toBe('11,7,5,15');
+  });
+
+  it('postOrderTraverse', () => {
+    const res: number[] = [];
+    const fn = (key) => {
+      res.push(key);
+    };
+    tree.postOrderTraverse(fn);
+    expect(res.toString()).toBe('5,7,15,11');
+  });
 
   it('min', () => {
     const mi = tree.min();
-    expect(mi.key).toBe(3);
+    expect(mi?.key).toBe(5);
   });
 
   it('max', () => {
     const max = tree.max();
-    expect(max.key).toBe(25);
+    expect(max?.key).toBe(15);
   });
 
   it('search', () => {
-    const target = tree.search(13);
+    const target = tree.search(11);
     expect(target).toBe(true);
   });
 
   it('remove', () => {
-    const target = tree.remove(15);
-    // expect(target).toBe(true);
-    console.log('target', tree);
+    tree.remove(5);
+    console.log('tree.remove(5)', tree.root);
+    expect(tree.root?.left?.left).toBeNull();
   });
 });

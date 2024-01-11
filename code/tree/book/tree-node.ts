@@ -1,7 +1,7 @@
-export default class TreeNode<P = number> {
+export default class TreeNode<P> {
   key: P;
-  left?: TreeNode<P> | null;
-  right?: TreeNode<P> | null;
+  left: TreeNode<P> | null;
+  right: TreeNode<P> | null;
 
   constructor(key: P) {
     this.key = key;
