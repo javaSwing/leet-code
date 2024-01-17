@@ -19,7 +19,7 @@ export default class BinarySearchTree<T = number> {
     }
   }
 
-  insertNode<T>(root: TreeNode<T>, key: T) {
+  insertNode(root: TreeNode<T>, key: T) {
     if (this.compareFn(key, root.key) === Compare.LESS_THAN) {
       if (root.left) {
         this.insertNode(root.left, key);
@@ -129,7 +129,7 @@ export default class BinarySearchTree<T = number> {
     this.root = this.removeNode(this.root, key);
   }
 
-  private removeNode(node: TreeNode<T> | null, key: T): TreeNode<T> | null {
+  removeNode(node: TreeNode<T> | null, key: T): TreeNode<T> | null {
     if (node === null) return null;
 
     if (this.compareFn(key, node.key) === Compare.LESS_THAN) {

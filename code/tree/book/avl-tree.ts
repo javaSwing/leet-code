@@ -1,6 +1,7 @@
 import { defaultCompare } from '../../heap/book/util';
+import { Compare } from '../../utils';
 import BinarySearchTree from './binary-search-tree';
-import type TreeNode from './tree-node';
+import TreeNode from './tree-node';
 
 const BalanceFactor = {
   UNBALANCED_RIGHT: 1, // 右子树不平衡
@@ -135,5 +136,84 @@ export class AVLTree<T = number> extends BinarySearchTree<T> {
     if (node.right == null) return null;
     node.right = this.rotationLL(node.right);
     return this.rotationRR(node);
+  }
+
+  insert(key: T) {
+    this.root = this.insertNode(this.root, key);
+  }
+
+  insertNode(node: TreeNode<T> | null, key: T) {
+    // 先执行插入
+    if (node == null) {
+      return new TreeNode(key);
+    } else if (this.compareFn(key, node.key) == Compare.LESS_THAN) {
+      node.left = this.insertNode(node.left, key);
+    } else if (this.compareFn(key, node.key) == Compare.BIGGER_THAN) {
+      node.right = this.insertNode(node.right, key);
+    } else {
+      return node;
+    }
+
+    // 检测当前树的平衡，进行调整
+    const balanceFactor = this.getBalanceFactor(node);
+    if (balanceFactor === BalanceFactor.UNBALANCED_LEFT && node !== null) {
+      if (this.compareFn(key, node.left?.key) === Compare.LESS_THAN) {
+        node = this.rotationLL(node);
+      } else {
+        node = this.rotationLR(node);
+      }
+    }
+
+    if (balanceFactor == BalanceFactor.UNBALANCED_RIGHT && node !== null) {
+      if (this.compareFn(key, node?.right?.key) === Compare.BIGGER_THAN) {
+        node = this.rotationRR(node);
+      } else {
+        node = this.rotationRL(node);
+      }
+    }
+
+    return node;
+  }
+
+  remove(key: T) {
+    this.root = this.removeNode(this.root, key);
+  }
+
+  removeNode(node: TreeNode<T> | null, key: T) {
+    node = super.removeNode(node, key);
+    if (node == null) {
+      return null;
+    }
+
+    // 检测树是否平衡进行调整
+    const balanceFactor = this.getBalanceFactor(node);
+    if (balanceFactor === BalanceFactor.UNBALANCED_LEFT && node.left != null) {
+      const balanceFactorLeft = this.getBalanceFactor(node.left);
+      if (
+        balanceFactorLeft === BalanceFactor.BALANCED ||
+        balanceFactorLeft === BalanceFactor.SLIGHTLY_UNBALANCED_LEFT
+      ) {
+        return this.rotationLL(node);
+      }
+
+      if (balanceFactorLeft === BalanceFactor.SLIGHTLY_UNBALANCED_RIGHT) {
+        return this.rotationLR(node.left);
+      }
+    }
+
+    if (balanceFactor === BalanceFactor.UNBALANCED_RIGHT && node.right != null) {
+      const balanceFactorRight = this.getBalanceFactor(node.right);
+
+      if (
+        balanceFactorRight === BalanceFactor.BALANCED ||
+        balanceFactorRight === BalanceFactor.SLIGHTLY_UNBALANCED_RIGHT
+      ) {
+        return this.rotationRR(node);
+      }
+      if (balanceFactorRight === BalanceFactor.SLIGHTLY_UNBALANCED_LEFT) {
+        return this.rotationRL(node.right);
+      }
+    }
+    return node;
   }
 }
