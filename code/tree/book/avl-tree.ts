@@ -82,12 +82,13 @@ export class AVLTree<T = number> extends BinarySearchTree<T> {
    * RR(右右)：向左旋转
    * @param node
    * @description 右右：向左旋转
-   *     k                         n
-   *    / \                       / \
-   *   m   n  rotationRR(k) ->   k   z
-   *      / \                   / \
-   *     q   z                 m   q
-   *
+   *     60                         70
+   *    / \                         / \
+   *   10  70  rotationRR(70) ->   60   75
+   *      / \                     / \     \
+   *     65   75                 10  65   80
+   *           \
+   *           80
    * 说明：这里的旋转相对于LL刚好是完全相反的两个存在，所有操作与LL相反即可
    */
   rotationRR(node: TreeNode<T>) {
@@ -102,13 +103,13 @@ export class AVLTree<T = number> extends BinarySearchTree<T> {
    * 左-右 向右的双侧旋转
    * @param node
    * @description 这种情况是出现在：二叉树的左侧节点比右侧节点高。且是左侧节点的右侧节点更“重”
-   *     k                         k
-   *    / \                       / \
-   *   m   n                     z   n
-   *  / \      ->rotationRR(m)  / \
-   * q   z                     m   j
-   *    / \                   / \
-   *    g  j                 q   g
+   *    30                         30                                   19
+   *    / \                       / \                                   / \
+   *   15  35                    19   35                              15   30
+   *  / \      ->rotationRR(19) / \         -> rotationLL(19)        / \    / \
+   * 13  19                    15 20                                13  16 20  35
+   *    / \                    / \
+   *   16  20                 13 16
    */
   rotationLR(node: TreeNode<T>) {
     if (node.left == null) return null;
@@ -120,6 +121,15 @@ export class AVLTree<T = number> extends BinarySearchTree<T> {
    * 右左 向右向左的双侧旋转
    * @param node
    * @returns
+   * @description 这种情况：二叉树的右侧节点的左侧节点比较重的情况
+   *
+   *      30                                            30                                           33
+   *      / \                                           / \                                         /  \
+   *     15  35            -> rotationLL(33)           15  33      -> rotationRR(33)               30  35
+   *         / \                                           / \                                    / \  / \
+   *        33  40                                        32 35                                  15 32 34 40
+   *       / \                                               / \
+   *      32 34                                             34 40
    */
   rotationRL(node: TreeNode<T>) {
     if (node.right == null) return null;
